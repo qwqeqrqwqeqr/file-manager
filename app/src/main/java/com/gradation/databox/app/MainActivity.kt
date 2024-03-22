@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.ui.Modifier
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.gradation.databox.theme.DataBoxTheme
+import com.gradation.databox.core.designsystem.theme.DataBoxTheme
 
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalPermissionsApi::class)
@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             DataBoxTheme {
-                LiftApp(
+                DataboxApp(
                     modifier = Modifier,
                     appState = rememberAppState(),
                 )

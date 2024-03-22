@@ -11,7 +11,7 @@ import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.MultiplePermissionsState
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
-import com.gradation.databox.utils.permissionList
+import com.gradation.databox.core.utils.permissionList
 import kotlinx.coroutines.CoroutineScope
 
 class AppState @OptIn(ExperimentalPermissionsApi::class) constructor(
