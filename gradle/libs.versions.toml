@@ -1,8 +1,9 @@
 [versions]
+accompanist="0.34.0"
 android-gradle-plugin = "8.2.2"
 androidx-activity = "1.8.2"
 androidx-app-compat = "1.6.1"
-androidx-compose-bom = "2024.02.01"
+androidx-compose-bom = "2024.02.02"
 androidx-test-ext-junit = "1.1.5"
 androidx-hilt-navigation-compose = "1.2.0"
 androidx-core = "1.12.0"
@@ -43,6 +44,7 @@ org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kot
 
 [libraries]
 
+accompanist-permission = {group="com.google.accompanist",name="accompanist-permissions", version.ref="accompanist"}
 
 #Android
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidx-app-compat" }
@@ -57,12 +59,14 @@ androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "l
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidx-navigation" }
 androidx-navigation-testing = { group = "androidx.navigation", name = "navigation-testing", version.ref = "androidx-navigation" }
 
+
 #COMPOSE
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidx-compose-bom" }
 androidx-compose-animation = { group = "androidx.compose.animation", name = "animation" }
 androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-compose-material = { group = "androidx.compose.material", name = "material" }
+androidx-compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended-android" }
 androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime" }
 androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
@@ -70,6 +74,7 @@ androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "u
 androidx-compose-ui-test = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+
 
 #Coroutine
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
@@ -142,10 +147,12 @@ android-hilt-bundle= [
 ]
 
 android-compose-bundle = [
+    "accompanist-permission",
     "androidx-compose-animation",
     "androidx-compose-foundation",
     "androidx-compose-material3",
     "androidx-compose-material",
+    "androidx-compose-material-icons-extended",
     "androidx-compose-runtime",
     "androidx-compose-ui",
     "androidx-compose-ui-tooling",
