@@ -30,7 +30,11 @@ class DataboxColorScheme(
     buttonColorBrush: Brush,
     buttonTextColor: Color,
     defaultButtonColor: Color,
-    defaultButtonTextColor: Color
+    defaultButtonTextColor: Color,
+    snackbarColor: Color,
+    snackbarTextColor: Color,
+    snackbarButtonColor: Color,
+    snackbarButtonTextColor: Color
 ) {
     var primaryColor: Color by mutableStateOf(primaryColor)
         private set
@@ -62,6 +66,14 @@ class DataboxColorScheme(
         private set
     var defaultButtonTextColor: Color by mutableStateOf(defaultButtonTextColor)
         private set
+    var snackbarColor:Color by mutableStateOf(snackbarColor)
+        private set
+    var snackbarTextColor:Color by mutableStateOf(snackbarTextColor)
+        private set
+    var snackbarButtonColor:Color by mutableStateOf(snackbarButtonColor)
+        private set
+    var snackbarButtonTextColor:Color by mutableStateOf(snackbarButtonTextColor)
+        private set
 
     fun copy(
         primaryColor: Color = this.primaryColor,
@@ -78,7 +90,12 @@ class DataboxColorScheme(
         buttonColorBrush: Brush = this.buttonColorBrush,
         buttonTextColor: Color = this.buttonTextColor,
         defaultButtonColor: Color = this.defaultButtonColor,
-        defaultButtonTextColor: Color = this.defaultButtonTextColor
+        defaultButtonTextColor: Color = this.defaultButtonTextColor,
+
+        snackbarColor: Color= this.snackbarColor,
+        snackbarTextColor: Color =this.snackbarTextColor,
+        snackbarButtonColor: Color =this.snackbarButtonColor,
+        snackbarButtonTextColor: Color =this.snackbarButtonTextColor
     ): DataboxColorScheme = DataboxColorScheme(
         primaryColor,
         secondaryColor,
@@ -94,26 +111,14 @@ class DataboxColorScheme(
         buttonColorBrush,
         buttonTextColor,
         defaultButtonColor,
-        defaultButtonTextColor
+        defaultButtonTextColor,
+        snackbarColor,
+        snackbarTextColor,
+        snackbarButtonColor,
+        snackbarButtonTextColor
     )
 
-    fun updateColorsFrom(other: DataboxColorScheme) {
-        primaryColor = other.primaryColor
-        secondaryColor = other.secondaryColor
-        mainBackgroundColor = other.mainBackgroundColor
-        mainSurfaceColor = other.mainSurfaceColor
-        backgroundColor = other.backgroundColor
-        surfaceColor = other.surfaceColor
-        primaryTextColor = other.primaryTextColor
-        secondaryTextColor = other.secondaryTextColor
-        tertiaryTextColor = other.tertiaryTextColor
-        iconColor = other.iconColor
-        dividerColor = other.dividerColor
-        buttonColorBrush = other.buttonColorBrush
-        buttonTextColor = other.buttonTextColor
-        defaultButtonColor = other.defaultButtonColor
-        defaultButtonTextColor = other.defaultButtonTextColor
-    }
+
 
 }
 
@@ -134,6 +139,11 @@ val databoxLightColorScheme: DataboxColorScheme by lazy {
         buttonTextColor = Color(0xFFFFFFFF),
         defaultButtonColor = Color(0xFFDDDBDB),
         defaultButtonTextColor = Color(0xFF6B6B6B),
+
+        snackbarColor = Color(0xEE484848),
+        snackbarTextColor = Color(0xFFFCFCFC),
+        snackbarButtonColor = Color(0xFF656565),
+        snackbarButtonTextColor = Color(0xFFDFDFDF),
     )
 }
 
@@ -154,5 +164,9 @@ val databoxDarkColorScheme: DataboxColorScheme by lazy {
         buttonTextColor = Color(0xFFFFFFFF),
         defaultButtonColor = Color(0xFF3D3D3D),
         defaultButtonTextColor = Color(0xFFC5C4C4),
+        snackbarColor = Color(0xEE484848),
+        snackbarTextColor = Color(0xFFFCFCFC),
+        snackbarButtonColor = Color(0xFF656565),
+        snackbarButtonTextColor = Color(0xFFDFDFDF),
     )
 }
