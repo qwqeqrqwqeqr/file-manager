@@ -1,4 +1,4 @@
-package com.gradation.databox.theme
+package com.gradation.databox.core.designsystem.theme
 
 import android.app.Activity
 import androidx.compose.foundation.isSystemInDarkTheme

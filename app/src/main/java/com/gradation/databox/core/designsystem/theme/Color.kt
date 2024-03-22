@@ -1,4 +1,4 @@
-package com.gradation.databox.theme
+package com.gradation.databox.core.designsystem.theme
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -132,8 +132,8 @@ val databoxLightColorScheme: DataboxColorScheme by lazy {
         dividerColor = Color(0xFFD2D2D2),
         buttonColorBrush = BUTTON_COLOR_BRUSH,
         buttonTextColor = Color(0xFFFFFFFF),
-        defaultButtonColor = Color(0xFFF0F0F0),
-        defaultButtonTextColor = Color(0xFF787878),
+        defaultButtonColor = Color(0xFFDDDBDB),
+        defaultButtonTextColor = Color(0xFF6B6B6B),
     )
 }
 
@@ -153,6 +153,6 @@ val databoxDarkColorScheme: DataboxColorScheme by lazy {
         buttonColorBrush = BUTTON_COLOR_BRUSH,
         buttonTextColor = Color(0xFFFFFFFF),
         defaultButtonColor = Color(0xFF3D3D3D),
-        defaultButtonTextColor = Color(0xFFB8B8B8),
+        defaultButtonTextColor = Color(0xFFC5C4C4),
     )
 }
