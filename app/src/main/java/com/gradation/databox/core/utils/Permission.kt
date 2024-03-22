@@ -1,4 +1,4 @@
-package com.gradation.databox.utils
+package com.gradation.databox.core.utils
 
 import android.Manifest
 import android.os.Build
