@@ -1,6 +1,5 @@
 package com.gradation.databox.app
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -37,7 +36,6 @@ fun DataboxApp(
             Column(
                 modifier = modifier
                     .fillMaxSize()
-                    .background(DataboxTheme.colorScheme.backgroundColor)
                     .padding(it)
             ) {
                 DataboxNavHost(
