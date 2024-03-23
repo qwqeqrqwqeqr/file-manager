@@ -12,12 +12,8 @@ val permissionList: List<String> =
             Manifest.permission.READ_MEDIA_AUDIO
         )
 
-    } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+    } else
         listOf(
             Manifest.permission.READ_EXTERNAL_STORAGE,
         )
-    } else listOf(
-        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-        Manifest.permission.READ_EXTERNAL_STORAGE,
-    )
 
