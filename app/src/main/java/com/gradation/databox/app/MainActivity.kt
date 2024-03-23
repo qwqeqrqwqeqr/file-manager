@@ -7,14 +7,15 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.ui.Modifier
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.gradation.databox.core.designsystem.theme.DataBoxTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalPermissionsApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
-
         enableEdgeToEdge()
-        super.onCreate(savedInstanceState)
 
+        super.onCreate(savedInstanceState)
 
         setContent {
             DataBoxTheme {

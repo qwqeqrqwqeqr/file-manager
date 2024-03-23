@@ -3,7 +3,7 @@ package com.gradation.databox.app
 import android.app.Activity
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.graphics.toArgb
@@ -33,7 +33,7 @@ class AppState @OptIn(ExperimentalPermissionsApi::class) constructor(
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun rememberAppState(
-    navController: NavHostController =rememberNavController(),
+    navController: NavHostController = rememberNavController(),
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
     multiplePermissionsState: MultiplePermissionsState = rememberMultiplePermissionsState(
         permissions = permissionList
@@ -46,12 +46,13 @@ fun rememberAppState(
     val window = (view.context as Activity).window
 
 
-    val color = when(currentDestination?.route){
-        Route.HOME_ROUTE ->  DataboxTheme.colorScheme.mainBackgroundColor
+    val color = when (currentDestination?.route) {
+        Route.HOME_ROUTE -> DataboxTheme.colorScheme.mainBackgroundColor
         else -> DataboxTheme.colorScheme.backgroundColor
     }
-    if (!view.isInEditMode) {
-        SideEffect {
+
+    LaunchedEffect(currentDestination) {
+        if (!view.isInEditMode) {
             window.statusBarColor = color.toArgb()
             window.navigationBarColor = color.toArgb()
         }
