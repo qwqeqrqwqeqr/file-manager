@@ -7,7 +7,7 @@ import androidx.compose.ui.text.TextStyle
 import com.gradation.databox.core.designsystem.theme.DataboxTheme
 
 
-enum class DataboxTextStyle { No1, No2, No3, No4, No5, No6, No7, No8 }
+enum class DataboxTextStyle { No0,No1, No2, No3, No4, No5, No6, No7, No8 }
 
 
 
@@ -19,6 +19,7 @@ data class TextWithStyle(
 
 @Composable
 internal fun DataboxTextStyle.toStyle(): TextStyle = when (this) {
+    DataboxTextStyle.No0 -> DataboxTheme.typography.no0
     DataboxTextStyle.No1 -> DataboxTheme.typography.no1
     DataboxTextStyle.No2 -> DataboxTheme.typography.no2
     DataboxTextStyle.No3 -> DataboxTheme.typography.no3
@@ -32,6 +33,7 @@ internal fun DataboxTextStyle.toStyle(): TextStyle = when (this) {
 
 @Composable
 internal fun DataboxTextStyle.toSpanStyle(): SpanStyle = when (this) {
+    DataboxTextStyle.No0 -> DataboxTheme.typography.no0.toSpanStyle()
     DataboxTextStyle.No1 -> DataboxTheme.typography.no1.toSpanStyle()
     DataboxTextStyle.No2 -> DataboxTheme.typography.no2.toSpanStyle()
     DataboxTextStyle.No3 -> DataboxTheme.typography.no3.toSpanStyle()

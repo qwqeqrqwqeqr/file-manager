@@ -24,13 +24,14 @@ fun DataboxSurface(
         horizontal = DataboxTheme.space.space20,
         vertical = DataboxTheme.space.space20
     ),
+    shape:RoundedCornerShape =RoundedCornerShape(DataboxTheme.space.space6),
     content: @Composable BoxScope.() -> Unit,
 ) {
     Box(
         modifier = modifier
             .background(
                 DataboxTheme.colorScheme.mainSurfaceColor,
-                RoundedCornerShape(DataboxTheme.space.space6)
+                shape
             )
             .padding(paddingValues),
         content = content

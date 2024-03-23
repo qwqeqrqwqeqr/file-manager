@@ -23,7 +23,11 @@ private val pretendard = FontFamily(
     Font(R.font.pretendard_extra_light, FontWeight.ExtraLight, FontStyle.Normal),
 )
 
-
+internal val TEXT_NO0 = TextStyle(
+    fontSize = 26.sp,
+    fontWeight = FontWeight.Bold,
+    fontFamily = pretendard
+)
 
 internal val TEXT_NO1 = TextStyle(
     fontSize = 22.sp,
@@ -67,6 +71,7 @@ internal val TEXT_NO8 = TextStyle(
 )
 
 data class DataboxTypography(
+    val no0: TextStyle = TEXT_NO0,
     val no1: TextStyle = TEXT_NO1,
     val no2: TextStyle= TEXT_NO2,
     val no3: TextStyle= TEXT_NO3,
