@@ -26,7 +26,6 @@ import com.gradation.databox.core.designsystem.theme.DataboxTheme
 fun DataboxSnackBar(
     modifier: Modifier = Modifier,
     snackbarHostState: SnackbarHostState,
-    onClick: (() -> Unit)? = null,
 ) {
     SnackbarHost(
         modifier = modifier.padding(DataboxTheme.space.space12),
@@ -35,8 +34,6 @@ fun DataboxSnackBar(
             SnackbarComponent(
                 modifier = modifier,
                 message = data.visuals.message,
-                actionLabel = data.visuals.actionLabel,
-                onClick = onClick ?: { data.dismiss() },
             )
         }
     )
@@ -47,10 +44,7 @@ fun DataboxSnackBar(
 fun SnackbarComponent(
     modifier: Modifier = Modifier,
     message: String,
-    actionLabel: String?,
-    onClick: () -> Unit,
 ) {
-    val interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -79,33 +73,7 @@ fun SnackbarComponent(
                 textAlign = TextAlign.Start
             )
         }
-        Row(
-            modifier = modifier
-                .background(
-                    DataboxTheme.colorScheme.snackbarButtonColor,
-                    RoundedCornerShape(DataboxTheme.space.space6)
-                )
-                .clickable(
-                    indication = null,
-                    interactionSource = interactionSource,
-                    onClick = onClick,
-                )
-                .padding(
-                    horizontal = DataboxTheme.space.space8,
-                    vertical = DataboxTheme.space.space4
-                ),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
-        ) {
-            DataboxText(
-                textStyle = DataboxTextStyle.No5,
-                text = actionLabel ?: "확인",
-                color = DataboxTheme.colorScheme.snackbarButtonTextColor,
-                textAlign = TextAlign.Center
-            )
-        }
     }
-
 }
 
 
@@ -119,9 +87,7 @@ fun DataboxSnackbarComponentPreview(modifier: Modifier = Modifier) {
                 .padding(DataboxTheme.space.space20),
             verticalArrangement = Arrangement.spacedBy(DataboxTheme.space.space20)
         ) {
-            SnackbarComponent(
-                modifier, message = "snack bar message", actionLabel = null, onClick = {}
-            )
+            SnackbarComponent(modifier, message = "snack bar message")
         }
     }
 }

@@ -16,21 +16,26 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.gradation.databox.core.designsystem.theme.DataBoxTheme
 import com.gradation.databox.core.designsystem.theme.DataboxTheme
 
+enum class SurfaceType { Primary, Secondary }
 
 @Composable
 fun DataboxSurface(
     modifier: Modifier = Modifier,
+    surfaceType: SurfaceType = SurfaceType.Primary,
     paddingValues: PaddingValues = PaddingValues(
         horizontal = DataboxTheme.space.space20,
         vertical = DataboxTheme.space.space20
     ),
-    shape:RoundedCornerShape =RoundedCornerShape(DataboxTheme.space.space6),
+    shape: RoundedCornerShape = RoundedCornerShape(DataboxTheme.space.space6),
     content: @Composable BoxScope.() -> Unit,
 ) {
     Box(
         modifier = modifier
             .background(
-                DataboxTheme.colorScheme.mainSurfaceColor,
+                when (surfaceType) {
+                    SurfaceType.Primary -> DataboxTheme.colorScheme.mainSurfaceColor
+                    SurfaceType.Secondary -> DataboxTheme.colorScheme.surfaceColor
+                },
                 shape
             )
             .padding(paddingValues),
@@ -43,17 +48,36 @@ fun DataboxSurface(
 @Composable
 fun DataboxSurfacePreview(modifier: Modifier = Modifier) {
     DataBoxTheme {
-        Column(
-            modifier = modifier
-                .background(DataboxTheme.colorScheme.mainBackgroundColor)
-                .padding(DataboxTheme.space.space20),
-            verticalArrangement = Arrangement.spacedBy(DataboxTheme.space.space20)
-        ) {
-            DataboxSurface(
-                modifier
-                    .fillMaxWidth()
-                    .height(DataboxTheme.space.space32),
-                content = {})
+        Column {
+
+
+            Column(
+                modifier = modifier
+                    .background(DataboxTheme.colorScheme.mainBackgroundColor)
+                    .padding(DataboxTheme.space.space20),
+                verticalArrangement = Arrangement.spacedBy(DataboxTheme.space.space20)
+            ) {
+                DataboxSurface(
+                    modifier
+                        .fillMaxWidth()
+                        .height(DataboxTheme.space.space32),
+                    surfaceType = SurfaceType.Primary,
+                    content = {})
+            }
+
+            Column(
+                modifier = modifier
+                    .background(DataboxTheme.colorScheme.backgroundColor)
+                    .padding(DataboxTheme.space.space20),
+                verticalArrangement = Arrangement.spacedBy(DataboxTheme.space.space20)
+            ) {
+                DataboxSurface(
+                    modifier
+                        .fillMaxWidth()
+                        .height(DataboxTheme.space.space32),
+                    surfaceType = SurfaceType.Secondary,
+                    content = {})
+            }
         }
     }
 }
