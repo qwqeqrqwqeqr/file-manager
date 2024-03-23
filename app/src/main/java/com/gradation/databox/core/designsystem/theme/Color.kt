@@ -3,7 +3,6 @@ package com.gradation.databox.core.designsystem.theme
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Brush.Companion.linearGradient
 import androidx.compose.ui.graphics.Color
@@ -25,7 +24,8 @@ class DataboxColorScheme(
     primaryTextColor: Color,
     secondaryTextColor: Color,
     tertiaryTextColor: Color,
-    iconColor: Color,
+    primaryIconColor: Color,
+    secondaryIconColor:Color,
     dividerColor: Color,
     buttonColorBrush: Brush,
     buttonTextColor: Color,
@@ -52,7 +52,9 @@ class DataboxColorScheme(
         private set
     var tertiaryTextColor: Color by mutableStateOf(tertiaryTextColor)
         private set
-    var iconColor: Color by mutableStateOf(iconColor)
+    var primaryIconColor: Color by mutableStateOf(primaryIconColor)
+        private set
+    var secondaryIconColor: Color by mutableStateOf(secondaryIconColor)
         private set
     var dividerColor: Color by mutableStateOf(dividerColor)
         private set
@@ -85,7 +87,8 @@ val databoxLightColorScheme: DataboxColorScheme by lazy {
         primaryTextColor = Color(0xFF353E4D),
         secondaryTextColor = Color(0xFF787878),
         tertiaryTextColor = Color(0xFFACACAC),
-        iconColor = Color(0xFFB0B9C2 ),
+        primaryIconColor = Color(0xFFB0B9C2 ),
+        secondaryIconColor= Color(0xFF353E4D),
         dividerColor = Color(0xFFD2D2D2),
         buttonColorBrush = BUTTON_COLOR_BRUSH,
         buttonTextColor = Color(0xFFFFFFFF),
@@ -107,7 +110,8 @@ val databoxDarkColorScheme: DataboxColorScheme by lazy {
         primaryTextColor = Color(0xFFFCFCFC),
         secondaryTextColor = Color(0xFFB8B8B8),
         tertiaryTextColor = Color(0xFF7D7D7D),
-        iconColor = Color(0xFF6E6E6E),
+        primaryIconColor = Color(0xFF6E6E6E),
+        secondaryIconColor= Color(0xFFFCFCFC),
         dividerColor = Color(0xFF5C5C5C),
         buttonColorBrush = BUTTON_COLOR_BRUSH,
         buttonTextColor = Color(0xFFFFFFFF),

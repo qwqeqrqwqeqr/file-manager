@@ -65,6 +65,7 @@ dependencies {
     implementation(libs.bundles.android.room.bundle)
     implementation(libs.bundles.android.hilt.bundle)
     implementation(libs.bundles.android.moshi.bundle)
+    implementation(libs.coil)
 
 
 }

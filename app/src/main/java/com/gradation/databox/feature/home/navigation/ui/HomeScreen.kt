@@ -59,7 +59,7 @@ fun HomeScreen(
                 )
                 Icon(
                     imageVector = Icons.Outlined.MoreHoriz, contentDescription = "MoreHoriz",
-                    tint = DataboxTheme.colorScheme.iconColor
+                    tint = DataboxTheme.colorScheme.secondaryIconColor
                 )
             }
         }
@@ -123,7 +123,7 @@ fun HomeScreen(
                             Icon(
                                 imageVector = Icons.Outlined.ChevronRight,
                                 contentDescription = "ChevronRight",
-                                tint = DataboxTheme.colorScheme.iconColor
+                                tint = DataboxTheme.colorScheme.primaryIconColor
                             )
 
                         }
@@ -162,7 +162,7 @@ fun HomeScreen(
                             Icon(
                                 imageVector = Icons.Outlined.ChevronRight,
                                 contentDescription = "ChevronRight",
-                                tint = DataboxTheme.colorScheme.iconColor
+                                tint = DataboxTheme.colorScheme.primaryIconColor
                             )
                         }
                     }

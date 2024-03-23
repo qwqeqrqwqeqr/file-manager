@@ -2,21 +2,24 @@ package com.gradation.databox.feature.directory.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Folder
+import androidx.compose.material.icons.outlined.ArrowBackIosNew
 import androidx.compose.material.icons.outlined.FolderOpen
+import androidx.compose.material.icons.outlined.MoreHoriz
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -29,9 +32,10 @@ import com.gradation.databox.core.designsystem.component.text.DataboxTextStyle
 import com.gradation.databox.core.designsystem.theme.DataboxTheme
 import com.gradation.databox.core.ui.compose.noRippleClickable
 import com.gradation.databox.data.file.model.DataboxFileType
-import com.gradation.databox.data.file.utils.getPathTreeList
+import com.gradation.databox.data.file.model.PathTree
 import com.gradation.databox.feature.directory.ui.component.DirectoryTypeItem
 import com.gradation.databox.feature.directory.ui.component.FileTypeItem
+import com.gradation.databox.feature.directory.ui.component.ImageFileTypeItem
 
 
 @Composable
@@ -39,6 +43,8 @@ fun DirectoryScreen(
     modifier: Modifier,
     directoryPath: String,
     fileList: List<DataboxFileType>,
+    pathTreeList: List<PathTree>,
+    popBackStack: () -> Unit,
     navigateDirectoryToDirectory: (String) -> Unit,
 ) {
     Column(
@@ -49,9 +55,43 @@ fun DirectoryScreen(
             )
     ) {
         Column(
-            modifier = modifier.padding(bottom = DataboxTheme.space.space20)
+            modifier = modifier.padding(
+                top = DataboxTheme.space.space20,
+                bottom = DataboxTheme.space.space20
+            ),
+            verticalArrangement = Arrangement.spacedBy(DataboxTheme.space.space20)
         ) {
-            Spacer(modifier = modifier.height(DataboxTheme.space.space72))
+            Row(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = DataboxTheme.space.space20),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Row(
+                    modifier = modifier,
+                    horizontalArrangement = Arrangement.spacedBy(DataboxTheme.space.space16),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        modifier = modifier.noRippleClickable { popBackStack() },
+                        imageVector = Icons.Outlined.ArrowBackIosNew,
+                        contentDescription = "ArrowBackIosNew",
+                        tint = DataboxTheme.colorScheme.secondaryIconColor
+                    )
+
+                    DataboxText(
+                        textStyle = DataboxTextStyle.No1,
+                        text = pathTreeList.lastOrNull()?.name ?: "",
+                        color = DataboxTheme.colorScheme.primaryTextColor,
+                        textAlign = TextAlign.Start
+                    )
+                }
+                Icon(
+                    imageVector = Icons.Outlined.MoreHoriz, contentDescription = "MoreHoriz",
+                    tint = DataboxTheme.colorScheme.secondaryIconColor
+                )
+            }
 
             Row(
                 modifier = modifier
@@ -63,13 +103,13 @@ fun DirectoryScreen(
                 Icon(
                     imageVector = Icons.Outlined.FolderOpen,
                     contentDescription = "FolderOpen",
-                    tint = DataboxTheme.colorScheme.iconColor
+                    tint = DataboxTheme.colorScheme.primaryIconColor
                 )
                 LazyRow(
                     modifier = modifier,
                     horizontalArrangement = Arrangement.spacedBy(DataboxTheme.space.space4)
                 ) {
-                    directoryPath.getPathTreeList().also { pathTreeList ->
+                    pathTreeList.also { pathTreeList ->
                         itemsIndexed(pathTreeList) { index, it ->
                             DataboxSurface(
                                 modifier = modifier.noRippleClickable {
@@ -86,7 +126,7 @@ fun DirectoryScreen(
                                 DataboxText(
                                     textStyle = DataboxTextStyle.No5,
                                     text = it.name,
-                                    color = DataboxTheme.colorScheme.primaryTextColor,
+                                    color = DataboxTheme.colorScheme.secondaryTextColor,
                                     textAlign = TextAlign.Start
                                 )
                             }
@@ -95,19 +135,46 @@ fun DirectoryScreen(
                 }
             }
         }
-        LazyColumn(
-            modifier.padding(horizontal = DataboxTheme.space.space20)
-        ) {
-            items(fileList) { file ->
-                when (file) {
-                    is DataboxFileType.DirectoryType ->
-                        DirectoryTypeItem(modifier, file, navigateDirectoryToDirectory)
-
-                    is DataboxFileType.FileType ->
-                        FileTypeItem(modifier, file)
-
+        if (fileList.isEmpty())
+            Box(
+                modifier = modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                Column(
+                    modifier,
+                    verticalArrangement = Arrangement.spacedBy(DataboxTheme.space.space4),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Icon(
+                        modifier = modifier.size(DataboxTheme.space.space68),
+                        imageVector = Icons.Filled.Folder,
+                        contentDescription = "Folder",
+                        tint = DataboxTheme.colorScheme.primaryIconColor
+                    )
+                    DataboxText(
+                        textStyle = DataboxTextStyle.No3,
+                        text = "폴더가 비어있습니다",
+                        color = DataboxTheme.colorScheme.secondaryTextColor,
+                        textAlign = TextAlign.Center
+                    )
                 }
             }
-        }
+        else
+            LazyColumn(
+                modifier.padding(horizontal = DataboxTheme.space.space20)
+            ) {
+                items(fileList) { file ->
+                    when (file) {
+                        is DataboxFileType.DirectoryType ->
+                            DirectoryTypeItem(modifier, file, navigateDirectoryToDirectory)
+
+                        is DataboxFileType.FileType ->
+                            FileTypeItem(modifier, file)
+
+                        is DataboxFileType.ImageType ->
+                            ImageFileTypeItem(modifier, file)
+                    }
+                }
+            }
     }
 }

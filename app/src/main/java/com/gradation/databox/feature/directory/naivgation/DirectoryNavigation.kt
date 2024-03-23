@@ -17,6 +17,8 @@ fun NavGraphBuilder.directoryScreen(
     val navigateDirectoryToDirectory: (String) -> Unit =
         { navController.navigateDirectoryToDirectory(it) }
 
+    val popBackStack :() -> Unit = { navController.popBackStack()}
+
     composable(
         route = "$DIRECTORY_ROUTE?$DIRECTORY_KEY={$DIRECTORY_KEY}",
         arguments = listOf(
@@ -26,7 +28,7 @@ fun NavGraphBuilder.directoryScreen(
         )) {
 
         DirectoryRoute(
-            modifier, navigateDirectoryToDirectory
+            modifier, navigateDirectoryToDirectory,popBackStack
         )
 
     }

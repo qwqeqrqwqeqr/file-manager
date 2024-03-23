@@ -45,7 +45,7 @@ fun FileTypeItem(
                     modifier = modifier.size(DataboxTheme.space.space28),
                     imageVector = Icons.Outlined.Description,
                     contentDescription = "",
-                    tint = DataboxTheme.colorScheme.iconColor
+                    tint = DataboxTheme.colorScheme.primaryIconColor
                 )
                 Column(verticalArrangement = Arrangement.spacedBy(DataboxTheme.space.space4)) {
                     DataboxText(
