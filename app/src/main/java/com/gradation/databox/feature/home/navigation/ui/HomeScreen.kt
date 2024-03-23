@@ -154,7 +154,7 @@ fun HomeScreen(
                                 )
                                 DataboxText(
                                     textStyle = DataboxTextStyle.No5,
-                                    text = "상위 저장소",
+                                    text = "시스템 저장소",
                                     color = DataboxTheme.colorScheme.primaryTextColor,
                                     textAlign = TextAlign.Start
                                 )

@@ -13,5 +13,5 @@ fun NavController.navigateHomeToDirectory(path: String) {
 
 
 fun NavController.navigateDirectoryToDirectory(path: String) {
-    this.navigate("$DIRECTORY_ROUTE/$path")
+    this.navigate("$DIRECTORY_ROUTE?$DIRECTORY_KEY=$path")
 }

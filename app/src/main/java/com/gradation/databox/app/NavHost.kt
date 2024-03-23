@@ -8,7 +8,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.MultiplePermissionsState
-import com.gradation.databox.feature.home.navigation.homeScreen
+import com.gradation.databox.feature.directory.naivgation.directoryScreen
+import com.gradation.databox.feature.home.navigation.navigation.homeScreen
 import com.gradation.databox.feature.permission.navigation.permissionScreen
 
 @OptIn(ExperimentalPermissionsApi::class)
@@ -29,6 +30,7 @@ fun DataboxNavHost(
         exitTransition = { fadeOut() },
     ) {
         homeScreen(modifier, navController)
+        directoryScreen(modifier,navController)
         permissionScreen(modifier,multiplePermissionsState)
     }
 }
