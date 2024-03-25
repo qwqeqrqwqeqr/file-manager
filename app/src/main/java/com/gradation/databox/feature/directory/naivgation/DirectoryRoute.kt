@@ -1,12 +1,14 @@
 package com.gradation.databox.feature.directory.naivgation
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.gradation.databox.core.ui.compose.showImmediatelySnackbar
+import com.gradation.databox.core.ui.event.EventState
 import com.gradation.databox.core.ui.navigation.Route.HOME_ROUTE
 import com.gradation.databox.data.file.model.DataboxFileType
 import com.gradation.databox.data.file.model.PathTree
@@ -17,10 +19,13 @@ import com.gradation.databox.feature.directory.data.model.AscendingType
 import com.gradation.databox.feature.directory.data.model.SortType
 import com.gradation.databox.feature.directory.data.model.ViewType
 import com.gradation.databox.feature.directory.data.state.DirectoryScreenState
+import com.gradation.databox.feature.directory.data.state.FileState
 import com.gradation.databox.feature.directory.data.state.rememberDirectoryScreenState
 import com.gradation.databox.feature.directory.ui.DirectoryScreen
+import com.gradation.databox.feature.directory.ui.bottomSheet.InfoBottomSheetView
 import com.gradation.databox.feature.directory.ui.bottomSheet.SortBottomSheetView
 import com.gradation.databox.feature.directory.ui.bottomSheet.ViewBottomSheetView
+import com.gradation.databox.feature.directory.ui.dialog.CreateDirectoryDialog
 
 
 @Composable
@@ -35,7 +40,8 @@ fun DirectoryRoute(
             HOME_ROUTE
         )
     ),
-    directoryScreenState: DirectoryScreenState = rememberDirectoryScreenState()
+    directoryScreenState: DirectoryScreenState = rememberDirectoryScreenState(),
+    fileState: FileState = sharedViewModel.fileState
 ) {
 
     val directoryPath: String by viewModel.directoryPath.collectAsStateWithLifecycle()
@@ -45,6 +51,8 @@ fun DirectoryRoute(
     val sortType: SortType by sharedViewModel.sortType
     val viewType: ViewType by sharedViewModel.viewType
     val ascendingType: AscendingType by sharedViewModel.ascendingType
+    val eventState:EventState by sharedViewModel.eventState.collectAsStateWithLifecycle()
+    val updateEventState:(EventState) ->Unit = sharedViewModel.updateEventState
 
     val fileList: List<DataboxFileType> =
         directoryPath.toDataboxFileTypeList().let { list ->
@@ -67,26 +75,57 @@ fun DirectoryRoute(
             }
         }
 
+    LaunchedEffect(eventState){
+        when(val result =eventState){
+            is EventState.Fail -> {
+                directoryScreenState.snackbarHostState.showImmediatelySnackbar(result.message)
+                updateEventState(EventState.None)
+            }
+            EventState.None -> {}
+            is EventState.Success -> {
+                result.message?.let{ message ->
+                    directoryScreenState.snackbarHostState.showImmediatelySnackbar(message)
+                }
+                updateEventState(EventState.None)
+            }
+        }
+    }
 
 
-    if (directoryScreenState.sortBottomSheetView) {
+
+    if (directoryScreenState.sortBottomSheetView)
         SortBottomSheetView(
             modifier = modifier,
             sortType = sortType,
             ascendingType = ascendingType,
             updateSortType = sharedViewModel.updateSortType,
             updateAscendingType = sharedViewModel.updateAscendingType,
-            updateSortBottomSheetView = directoryScreenState.updateSortBottomSheetView,
-            sortTypeEntries = viewModel.getSortTypeEntries()
+            sortTypeEntries = viewModel.getSortTypeEntries(),
+            directoryScreenState = directoryScreenState,
         )
-    }
 
-    AnimatedVisibility(visible = directoryScreenState.viewBottomSheetView) {
+
+    if (directoryScreenState.viewBottomSheetView)
         ViewBottomSheetView(
             modifier = modifier,
             viewType = viewType,
             updateViewType = sharedViewModel.updateViewType,
-            updateViewBottomSheetView = directoryScreenState.updateViewBottomSheetView
+            directoryScreenState = directoryScreenState,
+        )
+
+
+    if (directoryScreenState.infoBottomSheetView)
+        InfoBottomSheetView(
+            modifier = modifier,
+            directoryScreenState = directoryScreenState,
+        )
+
+    if (directoryScreenState.createDirectoryDialogView) {
+        CreateDirectoryDialog(
+            modifier = modifier,
+            directoryPath=directoryPath,
+            fileState = fileState,
+            directoryScreenState = directoryScreenState,
         )
     }
 
@@ -94,7 +133,6 @@ fun DirectoryRoute(
     DirectoryScreen(
         modifier,
         viewType,
-        directoryPath,
         fileList,
         pathTreeList,
         popBackStack,

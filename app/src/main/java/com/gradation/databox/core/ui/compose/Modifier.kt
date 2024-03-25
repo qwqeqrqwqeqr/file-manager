@@ -32,7 +32,7 @@ inline fun Modifier.noRippleClickable(crossinline onClick: () -> Unit): Modifier
 fun Modifier.scrollBar(
     lazyListState: LazyListState,
     width: Dp = DataboxTheme.space.space4,
-    barColor: Color = DataboxTheme.colorScheme.primaryColor
+    barColor: Color = DataboxTheme.colorScheme.primaryColor1
 ): Modifier {
 
     val color: Color by animateColorAsState(
@@ -71,7 +71,7 @@ fun Modifier.scrollBar(
 fun Modifier.scrollBar(
     lazyGridState: LazyGridState,
     width: Dp = DataboxTheme.space.space4,
-    barColor: Color = DataboxTheme.colorScheme.primaryColor
+    barColor: Color = DataboxTheme.colorScheme.primaryColor1
 ): Modifier {
 
     val color: Color by animateColorAsState(

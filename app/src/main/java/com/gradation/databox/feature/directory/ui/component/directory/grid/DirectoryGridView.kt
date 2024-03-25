@@ -30,11 +30,7 @@ fun DirectoryGridView(
     ) {
         items(fileList, key = { file -> file.absolutePath }) { file ->
             when (file) {
-                is DataboxFileType.DirectoryType -> GridDirectoryTypeItem(
-                    modifier,
-                    file,
-                    navigateDirectoryToDirectory
-                )
+                is DataboxFileType.DirectoryType -> GridDirectoryTypeItem(modifier, file, navigateDirectoryToDirectory)
 
                 is DataboxFileType.FileType -> GridFileTypeItem(modifier, file)
                 is DataboxFileType.ImageType -> GridImageTypeItem(modifier, file)

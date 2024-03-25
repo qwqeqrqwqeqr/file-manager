@@ -111,7 +111,7 @@ fun HomeScreen(
                                 Icon(
                                     imageVector = Icons.Outlined.Folder,
                                     contentDescription = "Folder",
-                                    tint = DataboxTheme.colorScheme.primaryColor
+                                    tint = DataboxTheme.colorScheme.primaryColor1
                                 )
                                 DataboxText(
                                     textStyle = DataboxTextStyle.No5,
@@ -150,7 +150,7 @@ fun HomeScreen(
                                 Icon(
                                     imageVector = Icons.Outlined.Folder,
                                     contentDescription = "Folder",
-                                    tint = DataboxTheme.colorScheme.primaryColor
+                                    tint = DataboxTheme.colorScheme.primaryColor1
                                 )
                                 DataboxText(
                                     textStyle = DataboxTextStyle.No5,

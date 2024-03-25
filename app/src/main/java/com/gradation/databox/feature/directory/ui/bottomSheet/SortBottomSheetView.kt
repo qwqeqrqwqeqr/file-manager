@@ -3,6 +3,7 @@ package com.gradation.databox.feature.directory.ui.bottomSheet
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -17,6 +18,7 @@ import com.gradation.databox.core.designsystem.theme.DataboxTheme
 import com.gradation.databox.core.ui.compose.noRippleClickable
 import com.gradation.databox.feature.directory.data.model.AscendingType
 import com.gradation.databox.feature.directory.data.model.SortType
+import com.gradation.databox.feature.directory.data.state.DirectoryScreenState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -26,20 +28,17 @@ fun SortBottomSheetView(
     ascendingType: AscendingType,
     updateSortType: (SortType) -> Unit,
     updateAscendingType: (AscendingType) -> Unit,
-    updateSortBottomSheetView: (Boolean) -> Unit,
-    sortTypeEntries: List<SortType>
+    sortTypeEntries: List<SortType>,
+    directoryScreenState: DirectoryScreenState,
 ) {
     DataboxBottomSheet(
         modifier = modifier,
-        onDismissRequest = { updateSortBottomSheetView(false) },
-        dragHandle = null
+        onDismissRequest = { directoryScreenState.updateSortBottomSheetView(false) },
     ) {
         Column(
             modifier = modifier
-                .padding(
-                    top = DataboxTheme.space.space20,
-                    bottom = DataboxTheme.space.space36
-                )
+                .fillMaxSize()
+                .padding(bottom = DataboxTheme.space.space36)
                 .padding(horizontal = DataboxTheme.space.space20),
             verticalArrangement = Arrangement.spacedBy(DataboxTheme.space.space36)
         ) {

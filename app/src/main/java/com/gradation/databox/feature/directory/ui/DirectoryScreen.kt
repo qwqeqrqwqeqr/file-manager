@@ -2,7 +2,6 @@ package com.gradation.databox.feature.directory.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -10,15 +9,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Sort
-import androidx.compose.material.icons.filled.Folder
 import androidx.compose.material.icons.filled.GridView
 import androidx.compose.material.icons.outlined.ArrowBackIosNew
 import androidx.compose.material.icons.outlined.FolderOpen
@@ -45,7 +40,6 @@ import com.gradation.databox.feature.directory.ui.component.directory.DirectoryV
 fun DirectoryScreen(
     modifier: Modifier,
     viewType: ViewType,
-    directoryPath: String,
     fileList: List<DataboxFileType>,
     pathTreeList: List<PathTree>,
     popBackStack: () -> Unit,
@@ -93,6 +87,7 @@ fun DirectoryScreen(
                     )
                 }
                 Icon(
+                    modifier = modifier.noRippleClickable { directoryScreenState.updateInfoBottomSheetView(true) },
                     imageVector = Icons.Outlined.MoreHoriz, contentDescription = "MoreHoriz",
                     tint = DataboxTheme.colorScheme.secondaryIconColor
                 )
