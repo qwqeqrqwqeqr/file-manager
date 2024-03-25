@@ -37,8 +37,11 @@ fun File.getExtension(): FileExtension {
     val index = this.name.lastIndexOf(".")
     return when (this.name.substring(index + 1)) {
         "jpg" -> FileExtension.JPG
+        "JPG" -> FileExtension.JPG
         "png" -> FileExtension.PNG
+        "PNG" -> FileExtension.PNG
         "jpeg" -> FileExtension.JPEG
+        "JPEG" -> FileExtension.JPEG
         else -> FileExtension.DEFAULT
     }
 }
