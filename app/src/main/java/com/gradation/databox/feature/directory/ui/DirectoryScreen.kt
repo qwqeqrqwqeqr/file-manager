@@ -14,9 +14,12 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Sort
 import androidx.compose.material.icons.filled.Folder
+import androidx.compose.material.icons.filled.GridView
 import androidx.compose.material.icons.outlined.ArrowBackIosNew
 import androidx.compose.material.icons.outlined.FolderOpen
 import androidx.compose.material.icons.outlined.MoreHoriz
@@ -31,8 +34,10 @@ import com.gradation.databox.core.designsystem.component.text.DataboxText
 import com.gradation.databox.core.designsystem.component.text.DataboxTextStyle
 import com.gradation.databox.core.designsystem.theme.DataboxTheme
 import com.gradation.databox.core.ui.compose.noRippleClickable
+import com.gradation.databox.core.ui.compose.scrollBar
 import com.gradation.databox.data.file.model.DataboxFileType
 import com.gradation.databox.data.file.model.PathTree
+import com.gradation.databox.feature.directory.data.state.DirectoryScreenState
 import com.gradation.databox.feature.directory.ui.component.DirectoryTypeItem
 import com.gradation.databox.feature.directory.ui.component.FileTypeItem
 import com.gradation.databox.feature.directory.ui.component.ImageFileTypeItem
@@ -46,6 +51,7 @@ fun DirectoryScreen(
     pathTreeList: List<PathTree>,
     popBackStack: () -> Unit,
     navigateDirectoryToDirectory: (String) -> Unit,
+    directoryScreenState: DirectoryScreenState,
 ) {
     Column(
         modifier = modifier
@@ -59,7 +65,7 @@ fun DirectoryScreen(
                 top = DataboxTheme.space.space20,
                 bottom = DataboxTheme.space.space20
             ),
-            verticalArrangement = Arrangement.spacedBy(DataboxTheme.space.space20)
+            verticalArrangement = Arrangement.spacedBy(DataboxTheme.space.space32)
         ) {
             Row(
                 modifier = modifier
@@ -92,46 +98,89 @@ fun DirectoryScreen(
                     tint = DataboxTheme.colorScheme.secondaryIconColor
                 )
             }
-
-            Row(
-                modifier = modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = DataboxTheme.space.space20),
-                horizontalArrangement = Arrangement.spacedBy(DataboxTheme.space.space20),
-                verticalAlignment = Alignment.CenterVertically
+            Column(
+                verticalArrangement = Arrangement.spacedBy(DataboxTheme.space.space12)
             ) {
-                Icon(
-                    imageVector = Icons.Outlined.FolderOpen,
-                    contentDescription = "FolderOpen",
-                    tint = DataboxTheme.colorScheme.primaryIconColor
-                )
-                LazyRow(
-                    modifier = modifier,
-                    horizontalArrangement = Arrangement.spacedBy(DataboxTheme.space.space4)
+                Row(
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = DataboxTheme.space.space20),
+                    horizontalArrangement = Arrangement.spacedBy(DataboxTheme.space.space20),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    pathTreeList.also { pathTreeList ->
-                        itemsIndexed(pathTreeList) { index, it ->
-                            DataboxSurface(
-                                modifier = modifier.noRippleClickable {
-                                    if (pathTreeList.lastIndex != index)
-                                        navigateDirectoryToDirectory(it.absolutePath)
-                                },
-                                surfaceType = SurfaceType.Secondary,
-                                paddingValues = PaddingValues(
-                                    vertical = DataboxTheme.space.space6,
-                                    horizontal = DataboxTheme.space.space12
-                                ),
-                                shape = RoundedCornerShape(DataboxTheme.space.space12)
-                            ) {
-                                DataboxText(
-                                    textStyle = DataboxTextStyle.No5,
-                                    text = it.name,
-                                    color = DataboxTheme.colorScheme.secondaryTextColor,
-                                    textAlign = TextAlign.Start
-                                )
+                    Icon(
+                        imageVector = Icons.Outlined.FolderOpen,
+                        contentDescription = "FolderOpen",
+                        tint = DataboxTheme.colorScheme.primaryIconColor
+                    )
+                    LazyRow(
+                        modifier = modifier,
+                        horizontalArrangement = Arrangement.spacedBy(DataboxTheme.space.space4)
+                    ) {
+                        pathTreeList.also { pathTreeList ->
+                            itemsIndexed(pathTreeList) { index, it ->
+                                DataboxSurface(
+                                    modifier = modifier.noRippleClickable {
+                                        if (pathTreeList.lastIndex != index)
+                                            navigateDirectoryToDirectory(it.absolutePath)
+                                    },
+                                    surfaceType = SurfaceType.Secondary,
+                                    paddingValues = PaddingValues(
+                                        vertical = DataboxTheme.space.space6,
+                                        horizontal = DataboxTheme.space.space12
+                                    ),
+                                    shape = RoundedCornerShape(DataboxTheme.space.space12)
+                                ) {
+                                    DataboxText(
+                                        textStyle = DataboxTextStyle.No5,
+                                        text = it.name,
+                                        color = DataboxTheme.colorScheme.secondaryTextColor,
+                                        textAlign = TextAlign.Start
+                                    )
+                                }
                             }
                         }
                     }
+                }
+                Row(
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = DataboxTheme.space.space20),
+                    horizontalArrangement = Arrangement.spacedBy(
+                        DataboxTheme.space.space20,
+                        Alignment.End
+                    ),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    /** TODO not implement
+                     *                     Icon(
+                     *                         modifier = modifier.size(DataboxTheme.space.space20),
+                     *                         imageVector = Icons.Filled.FilterAlt,
+                     *                         contentDescription = "FilterAlt",
+                     *                         tint = DataboxTheme.colorScheme.primaryIconColor
+                     *                     )
+                     */
+
+                    Icon(
+                        modifier = modifier
+                            .size(DataboxTheme.space.space20)
+                            .noRippleClickable {
+                                directoryScreenState.updateSortBottomSheetView(true)
+                            },
+                        imageVector = Icons.AutoMirrored.Filled.Sort,
+                        contentDescription = "Sort",
+                        tint = DataboxTheme.colorScheme.primaryIconColor
+                    )
+                    Icon(
+                        modifier = modifier
+                            .size(DataboxTheme.space.space20)
+                            .noRippleClickable {
+                                directoryScreenState.updateViewBottomSheetView(true)
+                            },
+                        imageVector = Icons.Filled.GridView,
+                        contentDescription = "GridView",
+                        tint = DataboxTheme.colorScheme.primaryIconColor
+                    )
                 }
             }
         }
@@ -159,9 +208,11 @@ fun DirectoryScreen(
                     )
                 }
             }
-        else
+        else {
+
             LazyColumn(
-                modifier.padding(horizontal = DataboxTheme.space.space20)
+                modifier.scrollBar(directoryScreenState.lazyListState).padding(horizontal = DataboxTheme.space.space20),
+                state = directoryScreenState.lazyListState
             ) {
                 items(fileList) { file ->
                     when (file) {
@@ -176,5 +227,6 @@ fun DirectoryScreen(
                     }
                 }
             }
+        }
     }
 }

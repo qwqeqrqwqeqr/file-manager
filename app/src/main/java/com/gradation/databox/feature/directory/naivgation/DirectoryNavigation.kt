@@ -28,7 +28,7 @@ fun NavGraphBuilder.directoryScreen(
         )) {
 
         DirectoryRoute(
-            modifier, navigateDirectoryToDirectory,popBackStack
+            modifier, navController,navigateDirectoryToDirectory,popBackStack
         )
 
     }

@@ -77,6 +77,12 @@ fun DirectoryTypeItem(
                             color = DataboxTheme.colorScheme.tertiaryTextColor,
                             textAlign = TextAlign.Start
                         )
+                        DataboxText(
+                            textStyle = DataboxTextStyle.No7,
+                            text = file.size.takeIf { it != 0L }?.toText() ?: "",
+                            color = DataboxTheme.colorScheme.tertiaryTextColor,
+                            textAlign = TextAlign.Start
+                        )
                     }
                 }
             }
