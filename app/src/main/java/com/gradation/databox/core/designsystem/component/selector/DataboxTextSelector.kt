@@ -42,13 +42,13 @@ fun DataboxTextSelector(
     )
 
     val borderColor: Color by animateColorAsState(
-        targetValue = if (selected) DataboxTheme.colorScheme.primaryColor else
+        targetValue = if (selected) DataboxTheme.colorScheme.primaryColor1 else
             Color.Transparent,
         label = "borderColorTransition",
     )
 
     val textColor: Color by animateColorAsState(
-        targetValue = if (selected) DataboxTheme.colorScheme.primaryColor else
+        targetValue = if (selected) DataboxTheme.colorScheme.primaryColor1 else
             DataboxTheme.colorScheme.secondaryTextColor,
         label = "borderColorTransition",
     )

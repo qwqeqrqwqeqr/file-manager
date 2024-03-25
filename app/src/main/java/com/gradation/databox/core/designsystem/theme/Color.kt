@@ -7,15 +7,21 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Brush.Companion.linearGradient
 import androidx.compose.ui.graphics.Color
 
-val PRIMARY_COLOR = Color(0xFF0099FF)
-val PRIMARY_COLOR2 = Color(0xFF2BAAFF)
+val PRIMARY_COLOR1 = Color(0xFF0099FF)
+val PRIMARY_COLOR2 = Color(0xFF98D6FF)
+
+
+
+val PRIMARY_COLOR3 = Color(0xFF2BAAFF)
+val PRIMARY_COLOR4 = Color(0xFF8FD2FF)
+
 val SECONDARY_COLOR = Color(0xFFFF99FF)
 
-val BUTTON_COLOR_BRUSH: Brush = linearGradient(colors = listOf(PRIMARY_COLOR, PRIMARY_COLOR2))
 
 
 class DataboxColorScheme(
-    primaryColor: Color,
+    primaryColor1: Color,
+    primaryColor2: Color,
     secondaryColor: Color,
     mainBackgroundColor: Color,
     mainSurfaceColor: Color,
@@ -27,14 +33,15 @@ class DataboxColorScheme(
     primaryIconColor: Color,
     secondaryIconColor:Color,
     dividerColor: Color,
-    buttonColorBrush: Brush,
     buttonTextColor: Color,
     defaultButtonColor: Color,
     defaultButtonTextColor: Color,
     snackbarColor: Color,
     snackbarTextColor: Color,
 ) {
-    var primaryColor: Color by mutableStateOf(primaryColor)
+    var primaryColor1: Color by mutableStateOf(primaryColor1)
+        private set
+    var primaryColor2: Color by mutableStateOf(primaryColor2)
         private set
     var secondaryColor: Color by mutableStateOf(secondaryColor)
         private set
@@ -58,8 +65,6 @@ class DataboxColorScheme(
         private set
     var dividerColor: Color by mutableStateOf(dividerColor)
         private set
-    var buttonColorBrush: Brush by mutableStateOf(buttonColorBrush)
-        private set
     var buttonTextColor: Color by mutableStateOf(buttonTextColor)
         private set
     var defaultButtonColor: Color by mutableStateOf(defaultButtonColor)
@@ -78,7 +83,8 @@ class DataboxColorScheme(
 
 val databoxLightColorScheme: DataboxColorScheme by lazy {
     DataboxColorScheme(
-        primaryColor = PRIMARY_COLOR,
+        primaryColor1 = PRIMARY_COLOR1,
+        primaryColor2 = PRIMARY_COLOR2,
         secondaryColor = SECONDARY_COLOR,
         mainBackgroundColor = Color(0xFFEFF0F3),
         mainSurfaceColor = Color(0xFFFFFFFF),
@@ -90,7 +96,6 @@ val databoxLightColorScheme: DataboxColorScheme by lazy {
         primaryIconColor = Color(0xFFB0B9C2 ),
         secondaryIconColor= Color(0xFF353E4D),
         dividerColor = Color(0xFFD2D2D2),
-        buttonColorBrush = BUTTON_COLOR_BRUSH,
         buttonTextColor = Color(0xFFFFFFFF),
         defaultButtonColor = Color(0xFFE8E9ED),
         defaultButtonTextColor = Color(0xFF56626F),
@@ -101,7 +106,8 @@ val databoxLightColorScheme: DataboxColorScheme by lazy {
 
 val databoxDarkColorScheme: DataboxColorScheme by lazy {
     DataboxColorScheme(
-        primaryColor = PRIMARY_COLOR,
+        primaryColor1 = PRIMARY_COLOR1,
+        primaryColor2 = PRIMARY_COLOR2,
         secondaryColor = SECONDARY_COLOR,
         mainBackgroundColor = Color(0xFF1C1C1C),
         mainSurfaceColor = Color(0xFF282828),
@@ -113,7 +119,6 @@ val databoxDarkColorScheme: DataboxColorScheme by lazy {
         primaryIconColor = Color(0xFF6E6E6E),
         secondaryIconColor= Color(0xFFFCFCFC),
         dividerColor = Color(0xFF5C5C5C),
-        buttonColorBrush = BUTTON_COLOR_BRUSH,
         buttonTextColor = Color(0xFFFFFFFF),
         defaultButtonColor = Color(0xFF3D3D3D),
         defaultButtonTextColor = Color(0xFFC5C4C4),

@@ -53,11 +53,11 @@ fun SnackbarComponent(
             .fillMaxWidth()
             .background(
                 DataboxTheme.colorScheme.snackbarColor,
-                RoundedCornerShape(DataboxTheme.space.space6)
+                RoundedCornerShape(DataboxTheme.space.space12)
             )
             .padding(
                 horizontal = DataboxTheme.space.space16,
-                vertical = DataboxTheme.space.space12
+                vertical = DataboxTheme.space.space16
             )
 
     ) {

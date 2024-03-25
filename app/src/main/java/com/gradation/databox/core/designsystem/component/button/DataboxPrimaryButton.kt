@@ -50,12 +50,21 @@ fun DataboxPrimaryButton(
         label = "textColorTransition"
     )
 
+    val buttonColor: Color by animateColorAsState(
+        targetValue =
+        if (enabled)  DataboxTheme.colorScheme.primaryColor1 else DataboxTheme.colorScheme.primaryColor2,
+        label = "buttonColorTransition",
+    )
+
 
     Row(
         modifier = modifier
             .height(DataboxTheme.space.space52)
             .fillMaxWidth()
-            .background(brush = DataboxTheme.colorScheme.buttonColorBrush, RoundedCornerShape(size = DataboxTheme.space.space12))
+            .background(
+                color = buttonColor,
+                RoundedCornerShape(size = DataboxTheme.space.space12)
+            )
             .clickable(
                 interactionSource = interactionSource,
                 indication = null,
@@ -74,8 +83,7 @@ fun DataboxPrimaryButton(
             text = text,
             color = textColor,
             textAlign = TextAlign.Center,
-
-            )
+        )
     }
 }
 
@@ -84,7 +92,7 @@ fun DataboxPrimaryButton(
 fun DataboxPrimaryPreview(modifier: Modifier = Modifier) {
     DataBoxTheme {
         Column(
-            modifier=modifier,
+            modifier = modifier,
             verticalArrangement = Arrangement.spacedBy(DataboxTheme.space.space20)
         ) {
             Column(
@@ -94,7 +102,7 @@ fun DataboxPrimaryPreview(modifier: Modifier = Modifier) {
             ) {
                 DataboxPrimaryButton(
                     modifier = modifier,
-                    text="Click",
+                    text = "Click",
                     enabled = true,
                     onClick = {}
                 )
@@ -106,7 +114,7 @@ fun DataboxPrimaryPreview(modifier: Modifier = Modifier) {
             ) {
                 DataboxPrimaryButton(
                     modifier = modifier,
-                    text="Click",
+                    text = "Click",
                     enabled = true,
                     onClick = {}
                 )
