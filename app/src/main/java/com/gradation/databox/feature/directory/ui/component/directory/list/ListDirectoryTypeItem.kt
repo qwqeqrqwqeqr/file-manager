@@ -1,4 +1,4 @@
-package com.gradation.databox.feature.directory.ui.component
+package com.gradation.databox.feature.directory.ui.component.directory.list
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,7 +24,7 @@ import com.gradation.databox.core.utils.mapper.toText
 import com.gradation.databox.data.file.model.DataboxFileType
 
 @Composable
-fun DirectoryTypeItem(
+fun ListDirectoryTypeItem(
     modifier: Modifier = Modifier,
     file: DataboxFileType.DirectoryType,
     navigateDirectoryToDirectory: (String) -> Unit

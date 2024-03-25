@@ -69,6 +69,16 @@ internal val TEXT_NO8 = TextStyle(
     fontWeight = FontWeight.Bold,
     fontFamily = pretendard
 )
+internal val TEXT_NO9 = TextStyle(
+    fontSize = 10.sp,
+    fontWeight = FontWeight.Bold,
+    fontFamily = pretendard
+)
+internal val TEXT_NO10 = TextStyle(
+    fontSize = 10.sp,
+    fontWeight = FontWeight.Normal,
+    fontFamily = pretendard
+)
 
 data class DataboxTypography(
     val no0: TextStyle = TEXT_NO0,
@@ -80,6 +90,8 @@ data class DataboxTypography(
     val no6: TextStyle= TEXT_NO6,
     val no7: TextStyle= TEXT_NO7,
     val no8: TextStyle= TEXT_NO8,
+    val no9: TextStyle= TEXT_NO9,
+    val no10: TextStyle= TEXT_NO10,
 )
 
 

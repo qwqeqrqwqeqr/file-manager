@@ -34,18 +34,17 @@ import com.gradation.databox.core.designsystem.component.text.DataboxText
 import com.gradation.databox.core.designsystem.component.text.DataboxTextStyle
 import com.gradation.databox.core.designsystem.theme.DataboxTheme
 import com.gradation.databox.core.ui.compose.noRippleClickable
-import com.gradation.databox.core.ui.compose.scrollBar
 import com.gradation.databox.data.file.model.DataboxFileType
 import com.gradation.databox.data.file.model.PathTree
+import com.gradation.databox.feature.directory.data.model.ViewType
 import com.gradation.databox.feature.directory.data.state.DirectoryScreenState
-import com.gradation.databox.feature.directory.ui.component.DirectoryTypeItem
-import com.gradation.databox.feature.directory.ui.component.FileTypeItem
-import com.gradation.databox.feature.directory.ui.component.ImageFileTypeItem
+import com.gradation.databox.feature.directory.ui.component.directory.DirectoryView
 
 
 @Composable
 fun DirectoryScreen(
     modifier: Modifier,
+    viewType: ViewType,
     directoryPath: String,
     fileList: List<DataboxFileType>,
     pathTreeList: List<PathTree>,
@@ -184,49 +183,12 @@ fun DirectoryScreen(
                 }
             }
         }
-        if (fileList.isEmpty())
-            Box(
-                modifier = modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Column(
-                    modifier,
-                    verticalArrangement = Arrangement.spacedBy(DataboxTheme.space.space4),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Icon(
-                        modifier = modifier.size(DataboxTheme.space.space68),
-                        imageVector = Icons.Filled.Folder,
-                        contentDescription = "Folder",
-                        tint = DataboxTheme.colorScheme.primaryIconColor
-                    )
-                    DataboxText(
-                        textStyle = DataboxTextStyle.No3,
-                        text = "폴더가 비어있습니다",
-                        color = DataboxTheme.colorScheme.secondaryTextColor,
-                        textAlign = TextAlign.Center
-                    )
-                }
-            }
-        else {
-
-            LazyColumn(
-                modifier.scrollBar(directoryScreenState.lazyListState).padding(horizontal = DataboxTheme.space.space20),
-                state = directoryScreenState.lazyListState
-            ) {
-                items(fileList) { file ->
-                    when (file) {
-                        is DataboxFileType.DirectoryType ->
-                            DirectoryTypeItem(modifier, file, navigateDirectoryToDirectory)
-
-                        is DataboxFileType.FileType ->
-                            FileTypeItem(modifier, file)
-
-                        is DataboxFileType.ImageType ->
-                            ImageFileTypeItem(modifier, file)
-                    }
-                }
-            }
-        }
+        DirectoryView(
+            modifier,
+            viewType,
+            fileList,
+            navigateDirectoryToDirectory,
+            directoryScreenState
+        )
     }
 }

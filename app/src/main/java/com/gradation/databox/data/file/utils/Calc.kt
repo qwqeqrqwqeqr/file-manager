@@ -3,6 +3,12 @@ package com.gradation.databox.data.file.utils
 import java.io.File
 
 fun calcDirectorySize(directory: File): Long {
-    return directory.listFiles()?.filter { !it.isDirectory }?.sumOf { it.length() } ?: 0L
+    var length: Long = 0
+    directory.listFiles()?.forEach { file ->
+        length += if (file.isFile)
+            file.length()
+        else calcDirectorySize(file)
+    }
+    return length;
 }
 

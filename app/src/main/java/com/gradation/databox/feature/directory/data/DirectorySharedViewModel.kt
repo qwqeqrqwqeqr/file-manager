@@ -16,7 +16,7 @@ class DirectorySharedViewModel @Inject constructor(
 
 
     val sortType: MutableState<SortType> = mutableStateOf(SortType.Name())
-    val viewType: MutableState<ViewType> = mutableStateOf(ViewType.List)
+    val viewType: MutableState<ViewType> = mutableStateOf(ViewType.Grid)
     val ascendingType: MutableState<AscendingType> = mutableStateOf(AscendingType.Ascending)
 
 

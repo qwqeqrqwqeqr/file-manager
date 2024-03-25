@@ -3,11 +3,9 @@ package com.gradation.databox.feature.directory.naivgation
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.gradation.databox.core.ui.navigation.Route.HOME_ROUTE
 import com.gradation.databox.data.file.model.DataboxFileType
@@ -22,10 +20,7 @@ import com.gradation.databox.feature.directory.data.state.DirectoryScreenState
 import com.gradation.databox.feature.directory.data.state.rememberDirectoryScreenState
 import com.gradation.databox.feature.directory.ui.DirectoryScreen
 import com.gradation.databox.feature.directory.ui.bottomSheet.SortBottomSheetView
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
+import com.gradation.databox.feature.directory.ui.bottomSheet.ViewBottomSheetView
 
 
 @Composable
@@ -87,12 +82,18 @@ fun DirectoryRoute(
     }
 
     AnimatedVisibility(visible = directoryScreenState.viewBottomSheetView) {
-
+        ViewBottomSheetView(
+            modifier = modifier,
+            viewType = viewType,
+            updateViewType = sharedViewModel.updateViewType,
+            updateViewBottomSheetView = directoryScreenState.updateViewBottomSheetView
+        )
     }
 
 
     DirectoryScreen(
         modifier,
+        viewType,
         directoryPath,
         fileList,
         pathTreeList,
