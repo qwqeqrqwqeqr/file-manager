@@ -1,6 +1,7 @@
 package com.gradation.databox.data.file.utils
 
 import com.gradation.databox.core.utils.mapper.toLocalDateTime
+import com.gradation.databox.data.file.getDirectorySize
 import com.gradation.databox.data.file.model.DataboxFileType
 import com.gradation.databox.data.file.model.FileExtension
 import java.io.File
@@ -29,7 +30,7 @@ fun File.toDataboxFileType(): DataboxFileType =
                 itemSize = file.listFiles()?.size?.toLong() ?: 0L,
                 name = file.name,
                 absolutePath = file.absolutePath,
-                size= calcDirectorySize(file),
+                size= getDirectorySize(file),
                 creationTime= attrs.creationTime().toLocalDateTime(),
                 lastAccessTime=attrs.lastModifiedTime().toLocalDateTime(),
                 lastModifiedTime = attrs.lastModifiedTime().toLocalDateTime()
@@ -79,8 +80,6 @@ fun File.toDataboxFileType(): DataboxFileType =
                         lastModifiedTime = attrs.lastModifiedTime().toLocalDateTime()
                     )
                 }
-
-
             }
         }
     }
