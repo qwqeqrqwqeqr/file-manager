@@ -17,9 +17,9 @@ import com.gradation.databox.feature.directory.data.DirectorySharedViewModel
 import com.gradation.databox.feature.directory.data.DirectoryViewModel
 import com.gradation.databox.feature.directory.data.model.AscendingType
 import com.gradation.databox.feature.directory.data.model.SortType
-import com.gradation.databox.feature.directory.data.model.ViewType
 import com.gradation.databox.feature.directory.data.state.DirectoryScreenState
 import com.gradation.databox.feature.directory.data.state.FileState
+import com.gradation.databox.feature.directory.data.state.TypeState
 import com.gradation.databox.feature.directory.data.state.rememberDirectoryScreenState
 import com.gradation.databox.feature.directory.ui.DirectoryScreen
 import com.gradation.databox.feature.directory.ui.bottomSheet.InfoBottomSheetView
@@ -41,24 +41,22 @@ fun DirectoryRoute(
         )
     ),
     directoryScreenState: DirectoryScreenState = rememberDirectoryScreenState(),
-    fileState: FileState = sharedViewModel.fileState
+    fileState: FileState = sharedViewModel.fileState,
+    typeState: TypeState = sharedViewModel.typeState
 ) {
 
     val directoryPath: String by viewModel.directoryPath.collectAsStateWithLifecycle()
     val pathTreeList: List<PathTree> by viewModel.pathTreeList.collectAsStateWithLifecycle()
 
 
-    val sortType: SortType by sharedViewModel.sortType
-    val viewType: ViewType by sharedViewModel.viewType
-    val ascendingType: AscendingType by sharedViewModel.ascendingType
-    val eventState:EventState by sharedViewModel.eventState.collectAsStateWithLifecycle()
-    val updateEventState:(EventState) ->Unit = sharedViewModel.updateEventState
+    val eventState: EventState by sharedViewModel.eventState.collectAsStateWithLifecycle()
+    val updateEventState: (EventState) -> Unit = sharedViewModel.updateEventState
 
     val fileList: List<DataboxFileType> =
         directoryPath.toDataboxFileTypeList().let { list ->
-            when (ascendingType) {
+            when (typeState.ascendingType) {
                 AscendingType.Ascending ->
-                    when (sortType) {
+                    when (typeState.sortType) {
                         is SortType.CreateTime -> list.sortedBy { it.creationTime }
                         is SortType.LastModifiedTime -> list.sortedBy { it.lastModifiedTime }
                         is SortType.Name -> list.sortedBy { it.name }
@@ -66,7 +64,7 @@ fun DirectoryRoute(
                     }
 
                 AscendingType.Descending ->
-                    when (sortType) {
+                    when (typeState.sortType) {
                         is SortType.CreateTime -> list.sortedByDescending { it.creationTime }
                         is SortType.LastModifiedTime -> list.sortedByDescending { it.lastModifiedTime }
                         is SortType.Name -> list.sortedByDescending { it.name }
@@ -75,15 +73,16 @@ fun DirectoryRoute(
             }
         }
 
-    LaunchedEffect(eventState){
-        when(val result =eventState){
+    LaunchedEffect(eventState) {
+        when (val result = eventState) {
             is EventState.Fail -> {
                 directoryScreenState.snackbarHostState.showImmediatelySnackbar(result.message)
                 updateEventState(EventState.None)
             }
+
             EventState.None -> {}
             is EventState.Success -> {
-                result.message?.let{ message ->
+                result.message?.let { message ->
                     directoryScreenState.snackbarHostState.showImmediatelySnackbar(message)
                 }
                 updateEventState(EventState.None)
@@ -96,10 +95,7 @@ fun DirectoryRoute(
     if (directoryScreenState.sortBottomSheetView)
         SortBottomSheetView(
             modifier = modifier,
-            sortType = sortType,
-            ascendingType = ascendingType,
-            updateSortType = sharedViewModel.updateSortType,
-            updateAscendingType = sharedViewModel.updateAscendingType,
+            typeState = typeState,
             sortTypeEntries = viewModel.getSortTypeEntries(),
             directoryScreenState = directoryScreenState,
         )
@@ -108,8 +104,7 @@ fun DirectoryRoute(
     if (directoryScreenState.viewBottomSheetView)
         ViewBottomSheetView(
             modifier = modifier,
-            viewType = viewType,
-            updateViewType = sharedViewModel.updateViewType,
+            typeState = typeState,
             directoryScreenState = directoryScreenState,
         )
 
@@ -117,24 +112,27 @@ fun DirectoryRoute(
     if (directoryScreenState.infoBottomSheetView)
         InfoBottomSheetView(
             modifier = modifier,
+            typeState = typeState,
             directoryScreenState = directoryScreenState,
         )
 
-    if (directoryScreenState.createDirectoryDialogView) {
+    if (directoryScreenState.createDirectoryDialogView)
         CreateDirectoryDialog(
             modifier = modifier,
-            directoryPath=directoryPath,
+            directoryPath = directoryPath,
             fileState = fileState,
             directoryScreenState = directoryScreenState,
         )
-    }
+
 
 
     DirectoryScreen(
         modifier,
-        viewType,
+        directoryPath,
         fileList,
         pathTreeList,
+        fileState,
+        typeState,
         popBackStack,
         navigateDirectoryToDirectory,
         directoryScreenState

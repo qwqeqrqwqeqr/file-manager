@@ -19,15 +19,13 @@ import com.gradation.databox.core.ui.compose.noRippleClickable
 import com.gradation.databox.feature.directory.data.model.AscendingType
 import com.gradation.databox.feature.directory.data.model.SortType
 import com.gradation.databox.feature.directory.data.state.DirectoryScreenState
+import com.gradation.databox.feature.directory.data.state.TypeState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SortBottomSheetView(
     modifier: Modifier = Modifier,
-    sortType: SortType,
-    ascendingType: AscendingType,
-    updateSortType: (SortType) -> Unit,
-    updateAscendingType: (AscendingType) -> Unit,
+    typeState: TypeState,
     sortTypeEntries: List<SortType>,
     directoryScreenState: DirectoryScreenState,
 ) {
@@ -73,20 +71,20 @@ fun SortBottomSheetView(
                     ) {
                         DataboxTextSelector(
                             modifier = modifier.noRippleClickable {
-                                updateAscendingType(
+                                typeState.updateAscendingType(
                                     AscendingType.Ascending
                                 )
                             },
-                            selected = ascendingType is AscendingType.Ascending,
+                            selected = typeState.ascendingType is AscendingType.Ascending,
                             text = "오름차순"
                         )
                         DataboxTextSelector(
                             modifier = modifier.noRippleClickable {
-                                updateAscendingType(
+                                typeState.updateAscendingType(
                                     AscendingType.Descending
                                 )
                             },
-                            selected = ascendingType is AscendingType.Descending,
+                            selected = typeState.ascendingType is AscendingType.Descending,
                             text = "내림차순"
                         )
                     }
@@ -107,8 +105,8 @@ fun SortBottomSheetView(
                     ) {
                         sortTypeEntries.forEach {
                             DataboxTextSelector(
-                                modifier = modifier.noRippleClickable { updateSortType(it) },
-                                selected = sortType == it,
+                                modifier = modifier.noRippleClickable { typeState.updateSortType(it) },
+                                selected = typeState.sortType == it,
                                 text = it.getTitleName()
                             )
                         }

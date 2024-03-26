@@ -18,13 +18,13 @@ import com.gradation.databox.core.designsystem.theme.DataboxTheme
 import com.gradation.databox.core.ui.compose.noRippleClickable
 import com.gradation.databox.feature.directory.data.model.ViewType
 import com.gradation.databox.feature.directory.data.state.DirectoryScreenState
+import com.gradation.databox.feature.directory.data.state.TypeState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ViewBottomSheetView(
     modifier: Modifier = Modifier,
-    viewType: ViewType,
-    updateViewType: (ViewType) -> Unit,
+    typeState: TypeState,
     directoryScreenState: DirectoryScreenState
 ) {
     DataboxBottomSheet(
@@ -69,20 +69,20 @@ fun ViewBottomSheetView(
                     ) {
                         DataboxTextSelector(
                             modifier = modifier.noRippleClickable {
-                                updateViewType(
+                                typeState.updateViewType(
                                     ViewType.List
                                 )
                             },
-                            selected = viewType is ViewType.List,
+                            selected = typeState.viewType is ViewType.List,
                             text = "리스트"
                         )
                         DataboxTextSelector(
                             modifier = modifier.noRippleClickable {
-                                updateViewType(
+                                typeState.updateViewType(
                                     ViewType.Grid
                                 )
                             },
-                            selected = viewType is ViewType.Grid,
+                            selected = typeState.viewType is ViewType.Grid,
                             text = "그리드"
                         )
                     }

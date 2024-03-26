@@ -1,16 +1,13 @@
 package com.gradation.databox.feature.directory.ui.dialog
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -27,23 +24,20 @@ import com.gradation.databox.core.designsystem.component.text.DataboxText
 import com.gradation.databox.core.designsystem.component.text.DataboxTextStyle
 import com.gradation.databox.core.designsystem.component.textField.DataboxTextField
 import com.gradation.databox.core.designsystem.theme.DataboxTheme
-import com.gradation.databox.core.ui.compose.showImmediatelySnackbar
-import com.gradation.databox.core.ui.event.EventState
-import com.gradation.databox.data.file.utils.getByteSize
+import com.gradation.databox.data.file.utils.validateFileName
 import com.gradation.databox.feature.directory.data.state.DirectoryScreenState
 import com.gradation.databox.feature.directory.data.state.FileState
 
 @Composable
 fun CreateDirectoryDialog(
     modifier: Modifier = Modifier,
-    directoryPath:String,
+    directoryPath: String,
     fileState: FileState,
     directoryScreenState: DirectoryScreenState
 ) {
     var directoryName: String by remember { mutableStateOf("새 폴더") }
     val onValueClear: () -> Unit = { directoryName = "" }
     val onValueChange: (String) -> Unit = { directoryName = it }
-    val maxByteLength = 255
 
     DataboxDialog(
         onDismissRequest = { directoryScreenState.updateCreateDirectoryDialogView(false) }
@@ -87,10 +81,10 @@ fun CreateDirectoryDialog(
                     }
                     DataboxPrimaryButton(
                         modifier = modifier.weight(1f),
-                        enabled = directoryName.isNotEmpty() && directoryName.getByteSize() < maxByteLength,
+                        enabled = directoryName.validateFileName(),
                         text = "생성"
                     ) {
-                        fileState.createDirectory(directoryPath,directoryName)
+                        fileState.createDirectory(directoryPath, directoryName)
                         directoryScreenState.updateInfoBottomSheetView(false)
                         directoryScreenState.updateCreateDirectoryDialogView(false)
                     }

@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -16,26 +17,39 @@ import com.gradation.databox.core.designsystem.component.text.DataboxText
 import com.gradation.databox.core.designsystem.component.text.DataboxTextStyle
 import com.gradation.databox.core.designsystem.theme.DataboxTheme
 import com.gradation.databox.core.ui.compose.noRippleClickable
+import com.gradation.databox.feature.directory.data.model.ModeType
 import com.gradation.databox.feature.directory.data.state.DirectoryScreenState
+import com.gradation.databox.feature.directory.data.state.TypeState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun InfoBottomSheetView(
     modifier: Modifier = Modifier,
+    typeState: TypeState,
     directoryScreenState: DirectoryScreenState
 ) {
+    val sheetState = rememberModalBottomSheetState()
+
     DataboxBottomSheet(
         modifier = modifier,
         onDismissRequest = { directoryScreenState.updateInfoBottomSheetView(false) },
+        sheetState=sheetState,
     ) {
         Column(
             modifier = modifier
                 .fillMaxSize()
-                .padding(vertical = DataboxTheme.space.space36)
-                .padding(horizontal = DataboxTheme.space.space20),
+                .padding(
+                    vertical = DataboxTheme.space.space36,
+                    horizontal = DataboxTheme.space.space20
+                ),
         ) {
             Column(
-                modifier = modifier.fillMaxWidth(),
+                modifier = modifier
+                    .fillMaxWidth()
+                    .noRippleClickable {
+                        typeState.updateModeType(ModeType.Edit)
+                        directoryScreenState.updateInfoBottomSheetView(false)
+                    },
                 verticalArrangement = Arrangement.spacedBy(DataboxTheme.space.space4)
             ) {
                 DataboxText(
@@ -63,7 +77,6 @@ fun InfoBottomSheetView(
                 verticalArrangement = Arrangement.spacedBy(DataboxTheme.space.space4)
             ) {
                 DataboxText(
-
                     textStyle = DataboxTextStyle.No3,
                     text = "새 폴더",
                     color = DataboxTheme.colorScheme.primaryTextColor,
