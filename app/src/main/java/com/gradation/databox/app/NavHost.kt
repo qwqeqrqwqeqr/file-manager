@@ -19,6 +19,7 @@ fun DataboxNavHost(
     modifier: Modifier = Modifier,
     startDestination: String,
     multiplePermissionsState: MultiplePermissionsState,
+    isExternalStorageManager: Boolean,
 ) {
     NavHost(
         navController = navController,
@@ -31,6 +32,6 @@ fun DataboxNavHost(
     ) {
         homeScreen(modifier, navController)
         directoryScreen(modifier,navController)
-        permissionScreen(modifier,multiplePermissionsState)
+        permissionScreen(modifier,navController,multiplePermissionsState,isExternalStorageManager)
     }
 }

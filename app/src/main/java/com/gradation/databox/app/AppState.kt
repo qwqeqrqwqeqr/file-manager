@@ -48,6 +48,7 @@ fun rememberAppState(
 
     val color = when (currentDestination?.route) {
         Route.HOME_ROUTE -> DataboxTheme.colorScheme.mainBackgroundColor
+        Route.PERMISSION_ROUTE -> DataboxTheme.colorScheme.mainBackgroundColor
         else -> DataboxTheme.colorScheme.backgroundColor
     }
 

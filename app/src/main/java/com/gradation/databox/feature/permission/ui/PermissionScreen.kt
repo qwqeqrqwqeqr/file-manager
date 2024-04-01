@@ -1,6 +1,7 @@
 package com.gradation.databox.feature.permission.ui
 
 import android.content.Context
+import android.os.Build
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -28,10 +29,12 @@ import com.gradation.databox.feature.permission.data.model.PermissionText
 @Composable
 fun PermissionScreen(
     modifier: Modifier,
-    context:Context,
+    context: Context,
     permissionList: List<Permission>,
-    launchMultiplePermissionRequest:()->Unit
+    launchMultiplePermissionRequest: () -> Unit,
 ) {
+
+
     Column(
         modifier = modifier
             .background(
@@ -84,7 +87,9 @@ fun PermissionScreen(
                                 textAlign = TextAlign.Start
                             )
                             DataboxText(
-                                modifier=modifier.clickable { context.navigateSettingInfo() },
+                                modifier = modifier.clickable {
+                                    context.navigateSettingInfo()
+                                },
                                 textStyle = DataboxTextStyle.No8,
                                 text = if (it.isGranted) "허용" else "미허용",
                                 color =
@@ -98,7 +103,8 @@ fun PermissionScreen(
                 }
             }
             DataboxDefaultButton(text = "권한 요청하기") {
-                launchMultiplePermissionRequest()
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) context.navigateSettingInfo()
+                else launchMultiplePermissionRequest()
             }
         }
     }
@@ -113,22 +119,22 @@ fun PermissionScreenPreview(
     DataBoxTheme {
         PermissionScreen(
             modifier = modifier,
-            context=context,
+            context = context,
             permissionList = listOf(
                 Permission(
-                    PermissionText.READ_MEDIA_IMAGES,
+                    PermissionText.READ_EXTERNAL_STORAGE,
                     true
                 ),
                 Permission(
-                    PermissionText.READ_MEDIA_VIDEO,
+                    PermissionText.READ_EXTERNAL_STORAGE,
                     true
                 ),
                 Permission(
-                    PermissionText.READ_MEDIA_AUDIO,
+                    PermissionText.READ_EXTERNAL_STORAGE,
                     false
                 )
             ),
-            launchMultiplePermissionRequest={}
+            launchMultiplePermissionRequest = {},
         )
     }
 }
