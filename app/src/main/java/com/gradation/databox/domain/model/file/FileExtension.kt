@@ -1,4 +1,4 @@
-package com.gradation.databox.data.file.model
+package com.gradation.databox.domain.model.file
 
 enum class FileExtension {
     JPG,

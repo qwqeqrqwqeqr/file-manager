@@ -1,8 +1,8 @@
-package com.gradation.databox.data.file.model
+package com.gradation.databox.domain.model.file
 
 import java.time.LocalDateTime
 
-sealed class DataboxFileType(
+sealed class FileType(
     val name: String,
     val absolutePath: String,
     val size: Long,
@@ -18,17 +18,17 @@ sealed class DataboxFileType(
         creationTime: LocalDateTime,
         lastAccessTime: LocalDateTime,
         lastModifiedTime: LocalDateTime,
-    ) : DataboxFileType(name, absolutePath, size, creationTime, lastAccessTime, lastModifiedTime)
+    ) : FileType(name, absolutePath, size, creationTime, lastAccessTime, lastModifiedTime)
 
 
-    class FileType(
+    class DefaultFileType(
         name: String,
         absolutePath: String,
         size: Long,
         creationTime: LocalDateTime,
         lastAccessTime: LocalDateTime,
         lastModifiedTime: LocalDateTime,
-    ) : DataboxFileType(name, absolutePath, size, creationTime, lastAccessTime, lastModifiedTime)
+    ) : FileType(name, absolutePath, size, creationTime, lastAccessTime, lastModifiedTime)
 
     class ImageType(
         name: String,
@@ -37,7 +37,7 @@ sealed class DataboxFileType(
         creationTime: LocalDateTime,
         lastAccessTime: LocalDateTime,
         lastModifiedTime: LocalDateTime,
-    ) : DataboxFileType(name, absolutePath, size, creationTime, lastAccessTime, lastModifiedTime)
+    ) : FileType(name, absolutePath, size, creationTime, lastAccessTime, lastModifiedTime)
 
 }
 

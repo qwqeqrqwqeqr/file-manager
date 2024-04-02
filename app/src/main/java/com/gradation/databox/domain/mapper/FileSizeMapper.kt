@@ -1,4 +1,4 @@
-package com.gradation.databox.core.utils.mapper
+package com.gradation.databox.domain.mapper
 
 
 
