@@ -4,5 +4,6 @@ sealed interface ModeType {
 
     data object View : ModeType
     data object Edit : ModeType
-    data class COPY(val isCopy: Boolean) : ModeType
+    data class Copy(val isCopy: Boolean) : ModeType
 }
+

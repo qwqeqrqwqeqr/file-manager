@@ -1,4 +1,4 @@
-package com.gradation.databox.core.ui.event
+package com.gradation.databox.core.common.state
 
 sealed interface EventState {
 

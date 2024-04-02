@@ -16,8 +16,8 @@ import com.gradation.databox.core.designsystem.component.text.DataboxText
 import com.gradation.databox.core.designsystem.component.text.DataboxTextStyle
 import com.gradation.databox.core.designsystem.theme.DataboxTheme
 import com.gradation.databox.core.ui.compose.noRippleClickable
-import com.gradation.databox.feature.directory.data.model.AscendingType
-import com.gradation.databox.feature.directory.data.model.SortType
+import com.gradation.databox.domain.model.type.AscendingType
+import com.gradation.databox.domain.model.type.SortType
 import com.gradation.databox.feature.directory.data.state.DirectoryScreenState
 import com.gradation.databox.feature.directory.data.state.TypeState
 
@@ -25,8 +25,9 @@ import com.gradation.databox.feature.directory.data.state.TypeState
 @Composable
 fun SortBottomSheetView(
     modifier: Modifier = Modifier,
+    sortType: SortType,
+    ascendingType: AscendingType,
     typeState: TypeState,
-    sortTypeEntries: List<SortType>,
     directoryScreenState: DirectoryScreenState,
 ) {
     DataboxBottomSheet(
@@ -69,24 +70,13 @@ fun SortBottomSheetView(
                         modifier = modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(DataboxTheme.space.space12)
                     ) {
-                        DataboxTextSelector(
-                            modifier = modifier.noRippleClickable {
-                                typeState.updateAscendingType(
-                                    AscendingType.Ascending
-                                )
-                            },
-                            selected = typeState.ascendingType is AscendingType.Ascending,
-                            text = "오름차순"
-                        )
-                        DataboxTextSelector(
-                            modifier = modifier.noRippleClickable {
-                                typeState.updateAscendingType(
-                                    AscendingType.Descending
-                                )
-                            },
-                            selected = typeState.ascendingType is AscendingType.Descending,
-                            text = "내림차순"
-                        )
+                        typeState.ascendingTypeEntries.forEach {
+                            DataboxTextSelector(
+                                modifier = modifier.noRippleClickable { typeState.updateAscendingType(it) },
+                                selected = ascendingType == it,
+                                text = typeState.getTitleName(it)
+                            )
+                        }
                     }
                 }
                 Column(
@@ -103,11 +93,11 @@ fun SortBottomSheetView(
                         modifier = modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(DataboxTheme.space.space12)
                     ) {
-                        sortTypeEntries.forEach {
+                        typeState.sortTypeEntries.forEach {
                             DataboxTextSelector(
                                 modifier = modifier.noRippleClickable { typeState.updateSortType(it) },
-                                selected = typeState.sortType == it,
-                                text = it.getTitleName()
+                                selected = sortType == it,
+                                text = typeState.getTitleName(it)
                             )
                         }
                     }

@@ -18,11 +18,14 @@ import com.gradation.databox.core.ui.compose.LocalSnackbarHostState
 @Composable
 fun rememberDirectoryScreenState(
     lazyListState: LazyListState = rememberLazyListState(),
-    lazyGridState: LazyGridState = rememberLazyGridState()
-
+    lazyGridState: LazyGridState = rememberLazyGridState(),
 ): DirectoryScreenState {
     val configuration = LocalConfiguration.current
     val snackbarHostState = LocalSnackbarHostState.current
+
+
+
+
 
     return remember(lazyListState, lazyGridState, configuration, snackbarHostState) {
         DirectoryScreenState(lazyListState, lazyGridState, configuration, snackbarHostState)

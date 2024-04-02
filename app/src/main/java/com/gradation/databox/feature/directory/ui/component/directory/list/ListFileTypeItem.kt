@@ -18,13 +18,17 @@ import androidx.compose.ui.unit.dp
 import com.gradation.databox.core.designsystem.component.text.DataboxText
 import com.gradation.databox.core.designsystem.component.text.DataboxTextStyle
 import com.gradation.databox.core.designsystem.theme.DataboxTheme
-import com.gradation.databox.core.utils.mapper.toText
-import com.gradation.databox.data.file.model.DataboxFileType
+import com.gradation.databox.domain.mapper.toText
+import com.gradation.databox.domain.model.file.FileType
+import com.gradation.databox.feature.directory.data.state.FileState
+import com.gradation.databox.feature.directory.data.state.ModeState
 
 @Composable
 fun ListFileTypeItem(
     modifier: Modifier = Modifier,
-    file: DataboxFileType.FileType
+    file: FileType.DefaultFileType,
+    fileState: FileState,
+    modeState:ModeState
 ) {
     Column(
         modifier = modifier,

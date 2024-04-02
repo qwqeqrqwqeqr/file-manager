@@ -12,7 +12,6 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Sort
-import androidx.compose.material.icons.filled.GridView
 import androidx.compose.material.icons.outlined.ArrowBackIosNew
 import androidx.compose.material.icons.outlined.FolderOpen
 import androidx.compose.material.icons.outlined.MoreHoriz
@@ -27,7 +26,7 @@ import com.gradation.databox.core.designsystem.component.text.DataboxText
 import com.gradation.databox.core.designsystem.component.text.DataboxTextStyle
 import com.gradation.databox.core.designsystem.theme.DataboxTheme
 import com.gradation.databox.core.ui.compose.noRippleClickable
-import com.gradation.databox.data.file.model.PathTree
+import com.gradation.databox.domain.model.file.PathTree
 import com.gradation.databox.feature.directory.data.state.DirectoryScreenState
 
 @Composable
@@ -154,16 +153,16 @@ fun HeaderView(
                     contentDescription = "Sort",
                     tint = DataboxTheme.colorScheme.primaryIconColor
                 )
-                Icon(
-                    modifier = modifier
-                        .size(DataboxTheme.space.space20)
-                        .noRippleClickable {
-                            directoryScreenState.updateViewBottomSheetView(true)
-                        },
-                    imageVector = Icons.Filled.GridView,
-                    contentDescription = "GridView",
-                    tint = DataboxTheme.colorScheme.primaryIconColor
-                )
+//                Icon(
+//                    modifier = modifier
+//                        .size(DataboxTheme.space.space20)
+//                        .noRippleClickable {
+//                            directoryScreenState.updateViewBottomSheetView(true)
+//                        },
+//                    imageVector = Icons.Filled.GridView,
+//                    contentDescription = "GridView",
+//                    tint = DataboxTheme.colorScheme.primaryIconColor
+//                )
             }
         }
     }

@@ -13,13 +13,13 @@ import androidx.compose.ui.text.style.TextAlign
 import com.gradation.databox.core.designsystem.component.text.DataboxText
 import com.gradation.databox.core.designsystem.component.text.DataboxTextStyle
 import com.gradation.databox.core.designsystem.theme.DataboxTheme
-import com.gradation.databox.core.utils.mapper.toText
-import com.gradation.databox.data.file.model.DataboxFileType
+import com.gradation.databox.domain.mapper.toText
+import com.gradation.databox.domain.model.file.FileType
 
 @Composable
 fun GridFileTypeItem(
     modifier: Modifier=Modifier,
-    file: DataboxFileType.FileType,
+    file: FileType.DefaultFileType,
 ){
     Column(
         modifier = modifier,

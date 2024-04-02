@@ -9,13 +9,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.gradation.databox.core.designsystem.theme.DataboxTheme
 import com.gradation.databox.core.ui.compose.scrollBar
-import com.gradation.databox.data.file.model.DataboxFileType
+import com.gradation.databox.domain.model.file.FileType
 import com.gradation.databox.feature.directory.data.state.DirectoryScreenState
+import com.gradation.databox.feature.directory.data.state.FileState
+import com.gradation.databox.feature.directory.data.state.ModeState
 
 @Composable
 fun DirectoryGridView(
     modifier: Modifier = Modifier,
-    fileList: List<DataboxFileType>,
+    fileList: List<FileType>,
+    fileState: FileState,
+    modeState: ModeState,
     navigateDirectoryToDirectory: (String) -> Unit,
     directoryScreenState: DirectoryScreenState
 ) {
@@ -30,10 +34,10 @@ fun DirectoryGridView(
     ) {
         items(fileList, key = { file -> file.absolutePath }) { file ->
             when (file) {
-                is DataboxFileType.DirectoryType -> GridDirectoryTypeItem(modifier, file, navigateDirectoryToDirectory)
+                is FileType.DirectoryType -> GridDirectoryTypeItem(modifier, file, navigateDirectoryToDirectory)
 
-                is DataboxFileType.FileType -> GridFileTypeItem(modifier, file)
-                is DataboxFileType.ImageType -> GridImageTypeItem(modifier, file)
+                is FileType.DefaultFileType -> GridFileTypeItem(modifier, file)
+                is FileType.ImageType -> GridImageTypeItem(modifier, file)
             }
         }
     }

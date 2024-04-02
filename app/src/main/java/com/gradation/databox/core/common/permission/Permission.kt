@@ -1,4 +1,4 @@
-package com.gradation.databox.core.utils
+package com.gradation.databox.core.common.permission
 
 import android.Manifest
 import android.os.Build

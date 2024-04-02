@@ -14,13 +14,13 @@ import coil.compose.AsyncImage
 import com.gradation.databox.core.designsystem.component.text.DataboxText
 import com.gradation.databox.core.designsystem.component.text.DataboxTextStyle
 import com.gradation.databox.core.designsystem.theme.DataboxTheme
-import com.gradation.databox.core.utils.mapper.toText
-import com.gradation.databox.data.file.model.DataboxFileType
+import com.gradation.databox.domain.mapper.toText
+import com.gradation.databox.domain.model.file.FileType
 
 @Composable
 fun GridImageTypeItem(
     modifier: Modifier=Modifier,
-    file: DataboxFileType.ImageType,
+    file: FileType.ImageType,
 ){
     Column(
         modifier = modifier,

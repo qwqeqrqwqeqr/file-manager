@@ -16,7 +16,7 @@ import com.gradation.databox.core.designsystem.component.text.DataboxText
 import com.gradation.databox.core.designsystem.component.text.DataboxTextStyle
 import com.gradation.databox.core.designsystem.theme.DataboxTheme
 import com.gradation.databox.core.ui.compose.noRippleClickable
-import com.gradation.databox.feature.directory.data.model.ViewType
+import com.gradation.databox.domain.model.type.ViewType
 import com.gradation.databox.feature.directory.data.state.DirectoryScreenState
 import com.gradation.databox.feature.directory.data.state.TypeState
 
@@ -24,6 +24,7 @@ import com.gradation.databox.feature.directory.data.state.TypeState
 @Composable
 fun ViewBottomSheetView(
     modifier: Modifier = Modifier,
+    viewType: ViewType,
     typeState: TypeState,
     directoryScreenState: DirectoryScreenState
 ) {
@@ -67,24 +68,15 @@ fun ViewBottomSheetView(
                         modifier = modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(DataboxTheme.space.space12)
                     ) {
-                        DataboxTextSelector(
-                            modifier = modifier.noRippleClickable {
-                                typeState.updateViewType(
-                                    ViewType.List
-                                )
-                            },
-                            selected = typeState.viewType is ViewType.List,
-                            text = "리스트"
-                        )
-                        DataboxTextSelector(
-                            modifier = modifier.noRippleClickable {
-                                typeState.updateViewType(
-                                    ViewType.Grid
-                                )
-                            },
-                            selected = typeState.viewType is ViewType.Grid,
-                            text = "그리드"
-                        )
+                        typeState.viewTypeEntries.forEach {
+                            DataboxTextSelector(
+                                modifier = modifier.noRippleClickable { typeState.updateViewType(it) },
+                                selected = typeState.viewType == it,
+                                text = typeState.getTitleName(it)
+                            )
+                        }
+
+
                     }
                 }
             }

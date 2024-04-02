@@ -1,5 +1,6 @@
 package com.gradation.databox.feature.directory.ui.bottomBar
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -23,16 +24,17 @@ import com.gradation.databox.core.ui.compose.noRippleClickable
 import com.gradation.databox.feature.directory.data.model.BottomBarItem
 import com.gradation.databox.feature.directory.data.model.ModeType
 import com.gradation.databox.feature.directory.data.state.FileState
-import com.gradation.databox.feature.directory.data.state.TypeState
+import com.gradation.databox.feature.directory.data.state.ModeState
 
 @Composable
 fun CopyBottomBar(
     modifier: Modifier,
     directoryPath: String,
     fileState: FileState,
-    typeState: TypeState,
-    modeType: ModeType.COPY
-){
+    modeState: ModeState,
+    modeType: ModeType.Copy
+) {
+    Log.d("test","배경 ${directoryPath}")
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -47,16 +49,18 @@ fun CopyBottomBar(
         listOf(
             BottomBarItem("취소", Icons.Filled.Close, {
                 fileState.clear()
-                typeState.updateModeType(ModeType.View)
+                modeState.updateModeType(ModeType.View)
             }, true),
             BottomBarItem(
-                if (modeType.isCopy) "복사" else "이동",
+                "붙혀넣기",
                 if (modeType.isCopy) Icons.Filled.FolderCopy
                 else Icons.AutoMirrored.Filled.DriveFileMove,
                 onClick = {
+                    Log.d("test","복사타겟 ${directoryPath}")
+
                     if (modeType.isCopy) fileState.copyFile(directoryPath)
                     else fileState.moveFile(directoryPath)
-                    typeState.updateModeType(ModeType.View)
+                    modeState.updateModeType(ModeType.View)
                 },
                 fileState.selectedFileList.isNotEmpty()
             ),

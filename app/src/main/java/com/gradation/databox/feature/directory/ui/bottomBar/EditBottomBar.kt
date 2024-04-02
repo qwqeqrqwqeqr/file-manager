@@ -25,13 +25,13 @@ import com.gradation.databox.core.ui.compose.noRippleClickable
 import com.gradation.databox.feature.directory.data.model.BottomBarItem
 import com.gradation.databox.feature.directory.data.model.ModeType
 import com.gradation.databox.feature.directory.data.state.FileState
-import com.gradation.databox.feature.directory.data.state.TypeState
+import com.gradation.databox.feature.directory.data.state.ModeState
 
 @Composable
 fun EditBottomBar(
     modifier: Modifier,
     fileState: FileState,
-    typeState: TypeState,
+    modeState: ModeState,
 ){
     Row(
         modifier = modifier
@@ -47,14 +47,14 @@ fun EditBottomBar(
         listOf(
             BottomBarItem("취소", Icons.Filled.Close, {
                 fileState.clear()
-                typeState.updateModeType(ModeType.View)
+                modeState.updateModeType(ModeType.View)
             }, true),
             BottomBarItem(
                 "이동",
                 Icons.AutoMirrored.Filled.DriveFileMove,
                 {
                     if (fileState.selectedFileList.isNotEmpty())
-                        typeState.updateModeType(ModeType.COPY(isCopy = false))
+                        modeState.updateModeType(ModeType.Copy(isCopy = false))
                 },
                 fileState.selectedFileList.isNotEmpty()
             ),
@@ -63,7 +63,7 @@ fun EditBottomBar(
                 Icons.Filled.FolderCopy,
                 {
                     if (fileState.selectedFileList.isNotEmpty())
-                        typeState.updateModeType(ModeType.COPY(isCopy = true))
+                        modeState.updateModeType(ModeType.Copy(isCopy = true))
                 },
                 fileState.selectedFileList.isNotEmpty()
             ),
@@ -73,7 +73,7 @@ fun EditBottomBar(
                 {
                     if (fileState.selectedFileList.isNotEmpty()) {
                         fileState.deleteFile()
-                        typeState.updateModeType(ModeType.View)
+                        modeState.updateModeType(ModeType.View)
                     }
                 },
                 fileState.selectedFileList.isNotEmpty()

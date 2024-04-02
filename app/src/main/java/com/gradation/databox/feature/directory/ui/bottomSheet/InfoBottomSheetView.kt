@@ -19,13 +19,14 @@ import com.gradation.databox.core.designsystem.theme.DataboxTheme
 import com.gradation.databox.core.ui.compose.noRippleClickable
 import com.gradation.databox.feature.directory.data.model.ModeType
 import com.gradation.databox.feature.directory.data.state.DirectoryScreenState
+import com.gradation.databox.feature.directory.data.state.ModeState
 import com.gradation.databox.feature.directory.data.state.TypeState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun InfoBottomSheetView(
     modifier: Modifier = Modifier,
-    typeState: TypeState,
+    modeState: ModeState,
     directoryScreenState: DirectoryScreenState
 ) {
     val sheetState = rememberModalBottomSheetState()
@@ -47,7 +48,7 @@ fun InfoBottomSheetView(
                 modifier = modifier
                     .fillMaxWidth()
                     .noRippleClickable {
-                        typeState.updateModeType(ModeType.Edit)
+                        modeState.updateModeType(ModeType.Edit)
                         directoryScreenState.updateInfoBottomSheetView(false)
                     },
                 verticalArrangement = Arrangement.spacedBy(DataboxTheme.space.space4)
