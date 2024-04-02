@@ -3,8 +3,8 @@ package com.gradation.databox.data.file.datasource
 import android.os.Environment
 import android.util.Log
 import com.gradation.databox.core.common.state.DataState
+import com.gradation.databox.data.file.utils.createDataboxFileType
 import com.gradation.databox.di.DispatcherProvider
-import com.gradation.databox.domain.mapper.file.createDataboxFileType
 import com.gradation.databox.domain.model.file.FileType
 import com.gradation.databox.domain.model.file.PathTree
 import kotlinx.coroutines.Dispatchers
