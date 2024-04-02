@@ -14,12 +14,18 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.gradation.databox.core.common.event.EventManager
 import com.gradation.databox.core.designsystem.theme.DataBoxTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var eventManager: EventManager
+
     @OptIn(ExperimentalPermissionsApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -41,8 +47,8 @@ class MainActivity : ComponentActivity() {
             DataBoxTheme {
                 DataboxApp(
                     modifier = Modifier,
-                    appState = rememberAppState(),
-                    isExternalStorageManager
+                    appState = rememberAppState(eventManager = eventManager),
+                    isExternalStorageManager,
                 )
             }
         }

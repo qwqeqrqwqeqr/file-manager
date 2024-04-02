@@ -45,14 +45,14 @@ fun DataboxApp(
                     navController = appState.navController,
                     startDestination =
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                        if(Environment.isExternalStorageManager()) HOME_ROUTE
+                        if (Environment.isExternalStorageManager()) HOME_ROUTE
                         else PERMISSION_ROUTE
-                    }else{
+                    } else {
                         if (appState.multiplePermissionsState.allPermissionsGranted) HOME_ROUTE
                         else PERMISSION_ROUTE
                     },
                     multiplePermissionsState = appState.multiplePermissionsState,
-                    isExternalStorageManager=isExternalStorageManager
+                    isExternalStorageManager = isExternalStorageManager
                 )
             }
         }
