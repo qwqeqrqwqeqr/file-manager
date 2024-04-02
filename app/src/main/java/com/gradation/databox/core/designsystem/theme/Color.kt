@@ -15,14 +15,12 @@ val PRIMARY_COLOR2 = Color(0xFF98D6FF)
 val PRIMARY_COLOR3 = Color(0xFF2BAAFF)
 val PRIMARY_COLOR4 = Color(0xFF8FD2FF)
 
-val SECONDARY_COLOR = Color(0xFFFF99FF)
 
 
 
 class DataboxColorScheme(
     primaryColor1: Color,
     primaryColor2: Color,
-    secondaryColor: Color,
     mainBackgroundColor: Color,
     mainSurfaceColor: Color,
     backgroundColor: Color,
@@ -42,8 +40,6 @@ class DataboxColorScheme(
     var primaryColor1: Color by mutableStateOf(primaryColor1)
         private set
     var primaryColor2: Color by mutableStateOf(primaryColor2)
-        private set
-    var secondaryColor: Color by mutableStateOf(secondaryColor)
         private set
     var mainBackgroundColor: Color by mutableStateOf(mainBackgroundColor)
         private set
@@ -85,7 +81,6 @@ val databoxLightColorScheme: DataboxColorScheme by lazy {
     DataboxColorScheme(
         primaryColor1 = PRIMARY_COLOR1,
         primaryColor2 = PRIMARY_COLOR2,
-        secondaryColor = SECONDARY_COLOR,
         mainBackgroundColor = Color(0xFFEFF0F3),
         mainSurfaceColor = Color(0xFFFFFFFF),
         backgroundColor = Color(0xFFFFFFFF),
@@ -108,7 +103,6 @@ val databoxDarkColorScheme: DataboxColorScheme by lazy {
     DataboxColorScheme(
         primaryColor1 = PRIMARY_COLOR1,
         primaryColor2 = PRIMARY_COLOR2,
-        secondaryColor = SECONDARY_COLOR,
         mainBackgroundColor = Color(0xFF1C1C1C),
         mainSurfaceColor = Color(0xFF282828),
         backgroundColor = Color(0xFF282828),
