@@ -1,39 +1,35 @@
 package com.gradation.databox.data.file.utils
 
-import android.os.Environment
-import com.gradation.databox.data.file.model.FileExtension
-import com.gradation.databox.data.file.model.PathTree
+
+import com.gradation.databox.domain.model.file.FileExtension
 import java.io.File
-import java.util.LinkedList
+import java.nio.file.Files
+import java.nio.file.Path
+import kotlin.io.path.name
+
+const val MAX_BYTE_LENGTH = 255
+
+fun String.getByteSize(): Int = toByteArray(Charsets.UTF_8).size
 
 
-fun String.getPathTreeList(): List<PathTree> {
-
-    val pathTreeList: LinkedList<PathTree> = LinkedList()
-
-    val dataAbsolutePath = Environment.getExternalStorageDirectory().absolutePath
-
-    split(File.separator).reduce { absolutePath, currentPath ->
-        pathTreeList.add(
-            PathTree(
-                absolutePath = "$absolutePath/$currentPath",
-                name = currentPath
+fun String.validateFileName(): Boolean {
+    return (isNotEmpty()
+            && getByteSize() < MAX_BYTE_LENGTH
+            && !contains('/')
+            && !contains('\\')
+            && !contains('?')
+            && !contains(':')
+            && !contains('\"')
+            && !contains('\'')
+            && !contains('<')
+            && !contains('>')
+            && !contains('|')
+            && !contains('*')
             )
-        )
-        "$absolutePath/$currentPath"
-    }
-
-
-    return if (contains(dataAbsolutePath)) {
-        pathTreeList.filterNot {
-            dataAbsolutePath.split(File.separator).contains(it.name)
-        }.toMutableList().also {
-            it.add(0, PathTree(name = "sdcard", absolutePath = dataAbsolutePath))
-        }
-    } else pathTreeList
 }
 
-fun File.getExtension(): FileExtension {
+
+fun Path.getExtension(): FileExtension {
     val index = this.name.lastIndexOf(".")
     return when (this.name.substring(index + 1)) {
         "jpg" -> FileExtension.JPG
@@ -44,4 +40,16 @@ fun File.getExtension(): FileExtension {
         "JPEG" -> FileExtension.JPEG
         else -> FileExtension.DEFAULT
     }
+}
+
+
+
+fun getDirectorySize(directory: File): Long {
+    var length: Long = 0
+    directory.listFiles()?.forEach { file ->
+        length += if (file.isFile)
+            file.length()
+        else getDirectorySize(file)
+    }
+    return length;
 }
