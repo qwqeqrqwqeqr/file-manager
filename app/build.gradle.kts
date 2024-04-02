@@ -59,6 +59,8 @@ dependencies {
     ksp(libs.hilt.compiler)
     annotationProcessor(libs.room.compiler)
 
+    implementation(libs.androidx.datastore)
+
     implementation(libs.bundles.android.core.bundle)
     implementation(libs.bundles.android.compose.bundle)
     implementation(libs.bundles.android.kotlin.bundle)

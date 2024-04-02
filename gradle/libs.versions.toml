@@ -1,5 +1,5 @@
 [versions]
-accompanist="0.34.0"
+accompanist = "0.34.0"
 android-gradle-plugin = "8.2.2"
 androidx-activity = "1.8.2"
 androidx-app-compat = "1.6.1"
@@ -14,7 +14,7 @@ androidx-navigation = "2.7.6"
 androidx-test-core = "1.4.0"
 androidx-test-rules = "1.5.0"
 androidx-test-runner = "1.5.2"
-coil="2.6.0"
+coil = "2.6.0"
 hilt = "2.48.1"
 hiltWork = "1.1.0"
 junit = "4.13.2"
@@ -44,7 +44,7 @@ org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kot
 
 [libraries]
 
-accompanist-permission = {group="com.google.accompanist",name="accompanist-permissions", version.ref="accompanist"}
+accompanist-permission = { group = "com.google.accompanist", name = "accompanist-permissions", version.ref = "accompanist" }
 
 #Android
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidx-app-compat" }
@@ -79,6 +79,10 @@ androidx-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graph
 #Coroutine
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
+
+#DataStore
+androidx-datastore = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "androidx-data-store" }
+
 #Kotlin
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinx-datetime" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
@@ -123,7 +127,7 @@ room-testing = { group = "androidx.room", name = "room-testing", version.ref = "
 
 
 #COIL
-coil = {group ="io.coil-kt",name="coil-compose", version.ref = "coil"}
+coil = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 
 
 [bundles]
@@ -134,13 +138,13 @@ android-core-bundle = [
     "androidx-lifecycle-runtime-ktx",
     "androidx-activity-compose"
 ]
-android-kotlin-bundle=[
+android-kotlin-bundle = [
     "kotlinx-coroutines-android",
     "kotlinx-coroutines-test",
     "kotlinx-datetime",
     "kotlinx-serialization-json"
 ]
-android-hilt-bundle= [
+android-hilt-bundle = [
     "hilt-android",
     "hilt-android-testing",
     "hilt-navigation-compose"
@@ -182,12 +186,12 @@ android-test-bundle = [
     "truth",
     "mockito-core"
 ]
-android-room-bundle=[
+android-room-bundle = [
     "room-ktx",
     "room-runtime",
     "room-testing"
 ]
-android-moshi-bundle=[
+android-moshi-bundle = [
     "moshi",
     "moshi-kotlin"
 ]
