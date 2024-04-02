@@ -1,6 +1,6 @@
-package com.gradation.databox.domain.mapper
+package com.gradation.databox.domain.mapper.type
 
-import com.gradation.databox.domain.model.AscendingType
+import com.gradation.databox.domain.model.type.AscendingType
 
 
 fun String.toAscendingType(): AscendingType =

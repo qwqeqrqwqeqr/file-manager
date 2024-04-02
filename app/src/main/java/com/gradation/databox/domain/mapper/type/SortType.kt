@@ -1,6 +1,6 @@
-package com.gradation.databox.domain.mapper
+package com.gradation.databox.domain.mapper.type
 
-import com.gradation.databox.domain.model.SortType
+import com.gradation.databox.domain.model.type.SortType
 
 
 fun String.toSortType(): SortType =

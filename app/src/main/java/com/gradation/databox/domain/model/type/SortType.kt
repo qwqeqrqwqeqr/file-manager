@@ -1,4 +1,4 @@
-package com.gradation.databox.domain.model
+package com.gradation.databox.domain.model.type
 
 sealed interface SortType {
     data object Name : SortType

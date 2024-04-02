@@ -5,12 +5,12 @@ import androidx.datastore.preferences.core.*
 import com.gradation.databox.data.datastore.Constants.ASCENDING_TYPE
 import com.gradation.databox.data.datastore.Constants.SORT_TYPE
 import com.gradation.databox.data.datastore.Constants.VIEW_TYPE
-import com.gradation.databox.domain.mapper.toAscendingType
-import com.gradation.databox.domain.mapper.toSortType
-import com.gradation.databox.domain.mapper.toViewType
-import com.gradation.databox.domain.model.AscendingType
-import com.gradation.databox.domain.model.SortType
-import com.gradation.databox.domain.model.ViewType
+import com.gradation.databox.domain.mapper.type.toAscendingType
+import com.gradation.databox.domain.mapper.type.toSortType
+import com.gradation.databox.domain.mapper.type.toViewType
+import com.gradation.databox.domain.model.type.AscendingType
+import com.gradation.databox.domain.model.type.SortType
+import com.gradation.databox.domain.model.type.ViewType
 import kotlinx.coroutines.flow.*
 import java.io.IOException
 import javax.inject.Inject
@@ -65,8 +65,7 @@ class DataStoreDataSource @Inject constructor(
             } else {
                 throw exception
             }
-        }
-        .map { it[VIEW_TYPE] ?: EMPTY_VALUE }.map { it.toViewType() }
+        }.map { it[VIEW_TYPE] ?: EMPTY_VALUE }.map { it.toViewType() }
 
 
 
