@@ -55,18 +55,14 @@ dependencies {
 
     val composeBom = platform(libs.androidx.compose.bom)
     implementation(composeBom)
-    ksp(libs.room.compiler)
     ksp(libs.hilt.compiler)
-    annotationProcessor(libs.room.compiler)
 
     implementation(libs.androidx.datastore)
 
     implementation(libs.bundles.android.core.bundle)
     implementation(libs.bundles.android.compose.bundle)
     implementation(libs.bundles.android.kotlin.bundle)
-    implementation(libs.bundles.android.room.bundle)
     implementation(libs.bundles.android.hilt.bundle)
-    implementation(libs.bundles.android.moshi.bundle)
     implementation(libs.coil)
 
 

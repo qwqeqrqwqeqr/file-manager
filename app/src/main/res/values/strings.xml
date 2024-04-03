@@ -1,4 +1,3 @@
 <resources>
-    <string name="app_name">데이터박스</string>
-    <string name="permission_title">CheckPermission</string>
+    <string name="app_name">databox</string>
 </resources>
