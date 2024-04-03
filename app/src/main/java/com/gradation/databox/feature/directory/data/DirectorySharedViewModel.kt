@@ -1,7 +1,5 @@
 package com.gradation.databox.feature.directory.data
 
-import android.util.Log
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gradation.databox.core.common.state.DataState
@@ -36,7 +34,6 @@ import javax.inject.Inject
 @HiltViewModel
 class DirectorySharedViewModel @Inject constructor(
     dispatcherProvider: DispatcherProvider,
-    dataStoreDataSource: DataStoreDataSource,
     fileDataSource: FileDataSource,
     eventManager: EventManager
 ) : ViewModel() {
@@ -46,7 +43,7 @@ class DirectorySharedViewModel @Inject constructor(
 
 
     val fileState: FileState =
-        FileState(eventManager.updateEventState, fileDataSource, viewModelScope)
+        FileState(eventManager.updateEventState, fileDataSource, viewModelScope,dispatcherProvider)
     val modeState: ModeState = ModeState()
 
 

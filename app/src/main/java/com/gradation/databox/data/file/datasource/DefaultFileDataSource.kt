@@ -16,6 +16,7 @@ import java.nio.file.Files
 import java.nio.file.Paths
 import java.nio.file.StandardCopyOption
 import java.util.LinkedList
+import java.util.stream.Collectors
 import javax.inject.Inject
 
 class DefaultFileDataSource @Inject constructor(
@@ -80,15 +81,14 @@ class DefaultFileDataSource @Inject constructor(
         }
     }.flowOn(dispatcherProvider.io)
 
-    override suspend fun deleteFile(filePathList: List<String>): Flow<DataState<Long>> = flow {
+    override suspend fun deleteFile(filePath: String): Flow<DataState<Long>> = flow {
         try {
             var deleteFileCount = 0L
-            filePathList.forEach { path ->
-                Files.walk(Paths.get(path))
-                    .sorted(Comparator.reverseOrder())
-                    .also { deleteFileCount += it.count() }
-                    .forEach { Files.delete(it) }
-            }
+            Files.walk(Paths.get(filePath))
+                .collect(Collectors.toList())
+                .reversed()
+                .also { deleteFileCount += it.count() }
+                .forEach{ Files.delete(it) }
             emit(DataState.Success(deleteFileCount))
         } catch (error: Throwable) {
             emit(DataState.Fail(error.toString()))
@@ -96,13 +96,17 @@ class DefaultFileDataSource @Inject constructor(
     }.flowOn(dispatcherProvider.io)
 
     override suspend fun moveFile(
-        filePathList: List<String>,
+        sourcePath: String,
         destinationPath: String
     ): Flow<DataState<Unit>> = flow {
         try {
-            Paths.get(destinationPath).also { destinationPath ->
-                filePathList.map { Paths.get(it) }.forEach { source ->
-                    Files.move(source, destinationPath.resolve(source.fileName), StandardCopyOption.REPLACE_EXISTING)
+            Paths.get(destinationPath).also { target ->
+                Paths.get(sourcePath).also { source ->
+                    Files.move(
+                        source,
+                        target.resolve(source.fileName),
+                        StandardCopyOption.REPLACE_EXISTING
+                    )
                 }
             }
             emit(DataState.Success(Unit))
@@ -113,18 +117,24 @@ class DefaultFileDataSource @Inject constructor(
     }.flowOn(dispatcherProvider.io)
 
     override suspend fun copyFile(
-        filePathList: List<String>,
+        sourcePath: String,
         destinationPath: String
     ): Flow<DataState<Unit>> = flow {
         try {
-            Paths.get(destinationPath).also { path ->
-                filePathList.forEach {
-                    Files.copy(Paths.get(it), path, StandardCopyOption.REPLACE_EXISTING)
+            val dPath = Paths.get(destinationPath)
+            val sPath = Paths.get(sourcePath)
+
+            Files.walk(sPath)
+                .forEach { source ->
+                    val target = dPath.resolve(sPath.relativize(source))
+                    Files.copy(source, target, StandardCopyOption.REPLACE_EXISTING)
                 }
-            }
+
+
             emit(DataState.Success(Unit))
         } catch (error: Throwable) {
             emit(DataState.Fail(error.toString()))
         }
     }.flowOn(dispatcherProvider.io)
 }
+

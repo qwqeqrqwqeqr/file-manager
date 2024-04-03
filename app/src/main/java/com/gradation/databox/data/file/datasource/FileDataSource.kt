@@ -14,10 +14,10 @@ interface FileDataSource {
 
     suspend fun createDirectory(path: String, name: String): Flow<DataState<Unit>>
 
-    suspend fun deleteFile(filePathList: List<String>): Flow<DataState<Long>>
+    suspend fun deleteFile(filePath: String): Flow<DataState<Long>>
 
-    suspend fun moveFile(filePathList: List<String>, destinationPath: String): Flow<DataState<Unit>>
+    suspend fun moveFile(sourcePath: String, destinationPath: String): Flow<DataState<Unit>>
 
-    suspend fun copyFile(filePathList: List<String>, destinationPath: String): Flow<DataState<Unit>>
+    suspend fun copyFile(sourcePath: String, destinationPath: String): Flow<DataState<Unit>>
 
 }

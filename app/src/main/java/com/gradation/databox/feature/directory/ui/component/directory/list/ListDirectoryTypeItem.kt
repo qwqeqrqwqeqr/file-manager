@@ -54,7 +54,16 @@ fun ListDirectoryTypeItem(
                     },
                     onDoubleClick = null,
                     onClick = {
-                        navigateDirectoryToDirectory(file.absolutePath)
+                        when(modeState.modeType){
+                            is ModeType.Copy -> navigateDirectoryToDirectory(file.absolutePath)
+                            ModeType.Edit -> {
+                                if (fileState.selectedFileList.contains(file.absolutePath)) fileState.unselectFile(
+                                    file.absolutePath
+                                )
+                                else fileState.selectFile(file.absolutePath)
+                            }
+                            ModeType.View -> navigateDirectoryToDirectory(file.absolutePath)
+                        }
                     },
                     interactionSource = remember { MutableInteractionSource() },
                     indication = null,

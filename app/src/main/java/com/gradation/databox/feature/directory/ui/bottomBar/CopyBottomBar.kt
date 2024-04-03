@@ -1,6 +1,5 @@
 package com.gradation.databox.feature.directory.ui.bottomBar
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -34,7 +33,6 @@ fun CopyBottomBar(
     modeState: ModeState,
     modeType: ModeType.Copy
 ) {
-    Log.d("test","배경 ${directoryPath}")
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -56,8 +54,6 @@ fun CopyBottomBar(
                 if (modeType.isCopy) Icons.Filled.FolderCopy
                 else Icons.AutoMirrored.Filled.DriveFileMove,
                 onClick = {
-                    Log.d("test","복사타겟 ${directoryPath}")
-
                     if (modeType.isCopy) fileState.copyFile(directoryPath)
                     else fileState.moveFile(directoryPath)
                     modeState.updateModeType(ModeType.View)
