@@ -27,7 +27,10 @@ fun PermissionRoute(
     val permissionList: List<Permission> = multiplePermissionsState.permissions.map {
         Permission(
             name = it.permission.toPermission(),
-            isGranted = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) isExternalStorageManager else it.status.isGranted
+            isGranted =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) it.status.isGranted
+            else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) isExternalStorageManager
+            else it.status.isGranted
         )
     }
 
@@ -36,7 +39,7 @@ fun PermissionRoute(
         { multiplePermissionsState.launchMultiplePermissionRequest() }
 
 
-    LaunchedEffect(isExternalStorageManager){
+    LaunchedEffect(isExternalStorageManager) {
         if (permissionList.none { !it.isGranted }) navigateToHome()
     }
 

@@ -103,7 +103,8 @@ fun PermissionScreen(
                 }
             }
             DataboxDefaultButton(text = "권한 요청하기") {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) context.navigateSettingInfo()
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) launchMultiplePermissionRequest()
+                else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) context.navigateSettingInfo()
                 else launchMultiplePermissionRequest()
             }
         }
